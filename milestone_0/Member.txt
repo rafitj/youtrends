@@ -2,7 +2,7 @@ Name: Hiro Ayettey - ehayette
 Progres: Made the milestone 0 frontend, created the milestone 0 backend and deployed it to Google Cloud.
 
 Name: Rafit Jamil - rf2jamil 
-Progress:
+Progress: Ideated, created repo, created backend/frontend boilerplate, setup GCP Cloud SQL database/schema and pushed data.
 
 Name: Michael Qin
 

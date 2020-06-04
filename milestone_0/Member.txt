@@ -7,5 +7,6 @@ Progress:
 Name: Michael Qin
 
 Name: Jin Huang
+Progress: fixed install script
 
 Name: Hussain Abdi 

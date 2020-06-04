@@ -7,7 +7,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 function getVideoIDList(list) {
   console.log(list)
   return list.map(i => 
-    <ul>Title: {i.title}, By: {i.channel_title}</ul>
+  <ul>Title: {i.channel_title} - Release Date: {i.title}</ul>
   );
 }
 

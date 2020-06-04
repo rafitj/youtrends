@@ -1,2 +1,11 @@
+Name: Hiro Ayettey - ehayette
+Progres: Made the milestone 0 frontend, created the milestone 0 backend and deployed it to Google Cloud.
+
 Name: Rafit Jamil - rf2jamil 
-Progress: 
+Progress:
+
+Name: Michael Qin
+
+Name: Jin Huang
+
+Name: Hussain Abdi 

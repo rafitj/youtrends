@@ -1,2 +1,2 @@
 cd code/youtube-trends-web
-npm start
+npm install

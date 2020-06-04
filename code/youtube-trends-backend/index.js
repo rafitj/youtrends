@@ -25,9 +25,11 @@ connection.connect(err => {
 
 app.use(cors());
 
+var offset = 0 % 1000
+
 app.get('/getVideos', (req, res) => {
-    var limit = req.json().body.limit || 15
-    var sql = `SELECT * FROM videos LIMIT ${limit}`;
+    var sql = `SELECT * FROM videos ORDER BY video_id LIMIT 15 OFFSET ${offset}`;
+    offset += 15;
     connection.query(sql, function (err, results) {
         if (err) {
             return res.send(err)

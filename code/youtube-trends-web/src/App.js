@@ -1,24 +1,37 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { useState, useEffect } from 'react';
 import './App.css';
+import axios from 'axios';
+import Button from 'react-bootstrap/Button';
+import 'bootstrap/dist/css/bootstrap.min.css';
+
+function getVideoIDList(list) {
+  console.log(list)
+  return list.map(i => 
+  <ul>Title: {i.channel_title} - Release Date: {i.title}</ul>
+  );
+}
 
 function App() {
+  
+  const [queryResult, setResult ] = useState([])
+
+  function queryDB() {
+    fetch('https://cs348-project-279101.uc.r.appspot.com/getVideos')
+      .then(response => response.json())
+      .then(response => setResult(response.data))
+      .catch(err => console.error(err))
+  }
+
+  useEffect(() => {
+    queryDB()
+  }, [])
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <p style = {{margin:"15px"}}>Click the button to get a new list of videos</p>
+      <Button variant="primary" onClick = { () => queryDB()}>Update</Button>
+      <h2 style = {{marginTop:"20px"}}>Results</h2>
+      {getVideoIDList(queryResult)}
     </div>
   );
 }

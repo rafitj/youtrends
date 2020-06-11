@@ -1,4 +1,4 @@
-runtime: nodejs 
+runtime: python37
 env: flex
 beta_settings:
   cloud_sql_instances: cs348-project-279101:us-central1:cs348project

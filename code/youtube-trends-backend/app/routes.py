@@ -5,7 +5,7 @@ from flask import abort, jsonify
 from app import app, models
 
 
-@app.route("/")
-def home():
-    x = models.Video.query.all()
-    return jsonify([i.id for i in x])
+@app.route("/videos", methods=['GET'])
+def getAllVideos():
+    videos = models.Video.query.all()
+    return jsonify([video.serialize() for video in videos])

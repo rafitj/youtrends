@@ -28,10 +28,17 @@ def getPlaylistVideos():
         videos.append(v)
     return jsonify([video.serialize() for video in videos])
 
-# TODO: Use Youtube API to create playlists (with API generated ids)
-# @app.route("/playlist", methods=['POST'])
-# def createPlaylist():
-#     pass
+
+@app.route("/playlist", methods=['POST'])
+def createPlaylist():
+    title = request.form.get('title')
+    # TODO: Use Youtube API to create playlists (with API generated ids)
+    id = uuid.uuid1()
+    user_id = request.form.get('user_id')
+    playlist = models.Playlist(id=id, title=title, user_id=user_id)
+    db.session.add(playlist)
+    db.session.commit()
+    return "Successfully created new playlist"
 
 
 @app.route("/playlist", methods=['DELETE'])
@@ -46,9 +53,9 @@ def deletePlaylist():
 def addPlaylistVideo():
     playlist_id = request.form.get('playlist_id')
     video_id = request.form.get('video_id')
-    playlistVideo = models.PlaylistVideo(
-        id=uuid.uuid1(),
-        video_id=video_id, playlist_id=playlist_id)
+    id = uuid.uuid1()
+    playlistVideo = models.PlaylistVideo(id=id,
+                                         video_id=video_id, playlist_id=playlist_id)
     db.session.add(playlistVideo)
     db.session.commit()
     return "Successfully added video to playlist"

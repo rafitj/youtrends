@@ -5,10 +5,18 @@ from flask import abort, jsonify, request
 
 from app import app, models, db
 
+@app.route("/")
+def home():
+    return "Hello world! Try route 'videosByViews'"
 
 @app.route("/videos", methods=['GET'])
 def getAllVideos():
     videos = models.Video.query.all()
+    return jsonify([video.serialize() for video in videos])
+
+@app.route("/videosByViews", methods=['GET'])
+def getVideosByViews():
+    videos = models.Video.query.order_by(models.Video.views.desc()).all()
     return jsonify([video.serialize() for video in videos])
 
 

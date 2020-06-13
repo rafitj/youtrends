@@ -1,4 +1,5 @@
 import logging
+import uuid
 
 from flask import abort, jsonify, request
 
@@ -19,45 +20,48 @@ def getUserPlaylists():
 
 @app.route("/playlist-videos", methods=['GET'])
 def getPlaylistVideos():
-    p_id = request.args.get('id')
-    playlistVideos = models.PlaylistVideo.query.filter_by(playlist_id=p_id)
+    id = request.args.get('id')
+    playlistVideos = models.PlaylistVideo.query.filter_by(playlist_id=id)
     videos = []
     for video in playlistVideos:
         v = models.Video.query.filter_by(id=video.video_id).first()
         videos.append(v)
     return jsonify([video.serialize() for video in videos])
 
-
-@app.route("/playlist", methods=['POST'])
-def createPlaylist():
-    pass
+# TODO: Use Youtube API to create playlists (with API generated ids)
+# @app.route("/playlist", methods=['POST'])
+# def createPlaylist():
+#     pass
 
 
 @app.route("/playlist", methods=['DELETE'])
 def deletePlaylist():
-    pass
+    id = request.args.get('id')
+    models.Playlist.query.filter_by(id=id).delete()
+    db.session.commit()
+    return "Successfully deleted playlist"
 
 
-@app.route("/playlist", methods=['PUT'])
-def updatePlaylist():
-    pass
+@app.route("/playlist-video", methods=['POST'])
+def addPlaylistVideo():
+    playlist_id = request.form.get('playlist_id')
+    video_id = request.form.get('video_id')
+    playlistVideo = models.PlaylistVideo(
+        id=uuid.uuid1(),
+        video_id=video_id, playlist_id=playlist_id)
+    db.session.add(playlistVideo)
+    db.session.commit()
+    return "Successfully added video to playlist"
 
 
-@app.route("/playlist", methods=['POST'])
-def addPlaylisVideo():
-    pass
-
-
-@app.route("/playlist", methods=['DELETE'])
+@app.route("/playlist-video", methods=['DELETE'])
 def removePlaylistVideo():
-    pass
+    id = request.args.get('id')
+    models.PlaylistVideo.query.filter_by(id=id).delete()
+    db.session.commit()
+    return "Success removed video from playlist"
 
-
+# TODO: Use Youtube API to dynamically insert videos
 # @app.route("/video", methods=['POST'])
 # def insertVideo():
-#     title = request.form.get('title')
-#     id = request.form.get('id')
-#     video = models.Video(id=id, title=title)
-#     db.session.add(video)
-#     db.session.commit()
-#     return jsonify(video.serialize())
+#     pass

@@ -12,3 +12,4 @@ db = SQLAlchemy(app)
 
 from app import models
 from app import routes
+from app import utils

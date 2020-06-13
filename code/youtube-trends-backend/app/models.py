@@ -1,7 +1,6 @@
 import json
 
-from app import db
-from utils import videoUrl, playlistVideoUrl, playlistUrl
+from app import db, utils
 from sqlalchemy import String, Column, Integer, ForeignKey, Date
 from sqlalchemy.orm import relationship
 
@@ -28,7 +27,7 @@ class Video(db.Model):
             'views': self.views,
             'likes': self.likes,
             'dislikes': self.dislikes,
-            'url': videoUrl(self.id)
+            'url': utils.videoUrl(self.id)
         }
 
     def __repr__(self):
@@ -63,7 +62,7 @@ class Playlist(db.Model):
             'id': self.id,
             'title': self.title,
             'user_id': self.user_id,
-            'url': playlistUrl(self.id)
+            'url': utils.playlistUrl(self.id)
         }
 
     def __repr__(self):
@@ -84,7 +83,7 @@ class PlaylistVideo(db.Model):
             'id': self.id,
             'playlist_id': self.playlist_id,
             'video_id': self.video_id,
-            'url': playlistVideoUrl(self.video_id, self.playlist_id)
+            'url': utils.playlistVideoUrl(self.video_id, self.playlist_id)
         }
 
     def __repr__(self):

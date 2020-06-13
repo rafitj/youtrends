@@ -11,14 +11,11 @@ def getAllVideos():
     return jsonify([video.serialize() for video in videos])
 
 
-
 @app.route("/video", methods=['POST'])
 def insertVideo():
-    title = request.form.get('tite')
+    title = request.form.get('title')
     id = request.form.get('id')
     video = models.Video(id=id, title=title)
     db.session.add(video)
     db.session.commit()
     return jsonify(video.serialize())
-
-

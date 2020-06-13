@@ -15,6 +15,7 @@ class Video(db.Model):
     likes = Column(Integer, nullable=False)
     views = Column(Integer, nullable=False)
     dislikes = Column(Integer, nullable=False)
+    trending_country = Column(String(255))
 
     def serialize(self):
         return {
@@ -27,6 +28,7 @@ class Video(db.Model):
             'views': self.views,
             'likes': self.likes,
             'dislikes': self.dislikes,
+            'trending_country': self.trending_country,
             'url': utils.videoUrl(self.id)
         }
 

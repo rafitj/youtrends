@@ -9,16 +9,16 @@ import axios from 'axios'
 
 const url = "http://127.0.0.1:5000"
 
-function removeVideoFromPlaylist(videoID, playlistID) {
+function removeVideoFromPlaylist(playlistVideoID) {
     axios.delete(url + "/playlist-video",
         {
-            id: videoID
+            id: playlistVideoID
         })
         .then(response => console.log(response))
         .catch(err => console.error(err))
 }
 
-function PlaylistVideo(thumbnail, title, views, date, ID, playlistID) {
+function PlaylistVideo(thumbnail, title, views, date, ID, playlistVideoID) {
     var url = "https://youtube.com/watch?v=" + ID
     return (
         <Grid container xs={3} spacing={2} className="video" style={{ padding: "8px", margin: "20px" }}>
@@ -43,7 +43,7 @@ function PlaylistVideo(thumbnail, title, views, date, ID, playlistID) {
                         <Typography variant="body1" gutterBottom>
                             {"Published: " + date}
                         </Typography>
-                        <Button variant="dark" className = "videoButton" onClick={() => removeVideoFromPlaylist(ID, playlistID)}>Remove</Button>
+                        <Button variant="dark" className="videoButton" onClick={() => removeVideoFromPlaylist(playlistVideoID)}>Remove</Button>
                     </Grid>
                 </Grid>
             </Grid>

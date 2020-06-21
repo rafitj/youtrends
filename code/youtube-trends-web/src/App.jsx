@@ -26,7 +26,7 @@ function displayVideos(videos) {
 
 function displayPlaylistVideos(videos) {
     return videos.map((video) => (
-        PlaylistVideo(defaultThumbnail, video.title, video.views, video.publish_time, video.id, playlistID)
+        PlaylistVideo(defaultThumbnail, video.title, video.views, video.publish_time, video.id, video.playlistvideo_id)
     ));
 }
 

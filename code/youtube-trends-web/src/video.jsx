@@ -19,17 +19,6 @@ function addVideoToPlaylist(videoID, playlistID) {
         .catch(err => console.error(err))
 }
 
-function removeVideoFromPlaylist(videoID, playlistID) {
-    axios.delete(url + "/playlist-video",
-        {
-            data: {
-                id: videoID
-            }
-        })
-        .then(response => console.log(response))
-        .catch(err => console.error(err))
-}
-
 function Video(thumbnail, title, views, date, ID, playlistID) {
     var url = "https://youtube.com/watch?v=" + ID
     return (
@@ -56,7 +45,6 @@ function Video(thumbnail, title, views, date, ID, playlistID) {
                             {"Published: " + date}
                         </Typography>
                         <Button variant="dark" className="videoButton" onClick={() => addVideoToPlaylist(ID, playlistID)}>Add to Playlist</Button>
-                        <Button variant="dark" className="videoButton" onClick={() => removeVideoFromPlaylist(ID, playlistID)}>Remove</Button>
                     </Grid>
                 </Grid>
             </Grid>

@@ -1,41 +1,114 @@
 import React, { useState, useEffect } from "react";
-import "./App.css";
-import axios from "axios";
+import "./CSS/App.css";
 import Button from "react-bootstrap/Button";
-import "bootstrap/dist/css/bootstrap.min.css";
+import "./CSS/bootstrap.css";
+import axios from 'axios'
+import NavBar from "./Navbar.jsx"
+import Video from "./video.jsx"
+import defaultThumbnail from "./Assets/defaultVideo.png"
+import Grid from '@material-ui/core/Grid';
+import {
+    BrowserRouter as Router,
+    Switch,
+    Route,
+} from "react-router-dom";
+import PlaylistVideo from './playlistVideo.jsx'
 
-function getVideoIDList(list) {
-    console.log(list);
-    return list.map((i) => (
-        <ul>
-            Title: {i.channel_title} - Release Date: {i.title}
-        </ul>
+const url = "http://127.0.0.1:5000"
+const playlistID = "PLyp73GSQkAGm7PBAI37oI8b0axk_YFYf0"
+
+function displayVideos(videos) {
+    return videos.map((video) => (
+        Video(defaultThumbnail, video.title, video.views, video.publish_time, video.id, playlistID)
+    ));
+}
+
+function displayPlaylistVideos(videos) {
+    return videos.map((video) => (
+        PlaylistVideo(defaultThumbnail, video.title, video.views, video.publish_time, video.id, video.playlistvideo_id)
     ));
 }
 
 function App() {
-    const [queryResult, setResult] = useState([]);
-    function queryDB() {
-        fetch("http://localhost:5000/videos")
-            .then((response) => { console.log(response) })
-            .then((response) => setResult(response.data))
-            .catch((err) => console.error(err));
+    const [videos, setVideos] = useState([]);
+    const [playlistVideos, setPlaylistVideos] = useState([]);
+
+    function getVideos() {
+        axios.get(url + "/videos")
+            .then(response => setVideos(response.data))
+            .catch(err => console.error(err))
+    }
+
+    function getVideosByViews() {
+        axios.get(url + "/videosByViews")
+            .then(response => setVideos(response.data))
+            .catch(err => console.error(err))
+    }
+
+    function getPlaylistVideos() {
+        axios.get(url + "/playlist-videos", {
+            params: {
+                id: playlistID
+            }
+        })
+            .then(response => setPlaylistVideos(response.data))
+            .catch(err => console.error(err))
     }
 
     useEffect(() => {
-        queryDB();
+        getVideos();
+        getPlaylistVideos();
     }, []);
+
+    function videosPage() {
+        return (
+            <div>
+                <div className="filters">
+                    <h3>Filters</h3>
+                    <Button variant="dark" className="filterButton" onClick={() => getVideos()}>Unsorted</Button>
+                    <Button variant="dark" className="filterButton" onClick={() => getVideosByViews()}>Sort by Views</Button>
+                </div>
+                <div className="videosCollection">
+                    <Grid container xs={3} sm spacing={2} style={{ padding: "8px", marginLeft: "16px" }}>
+                        {displayVideos(videos)}
+                    </Grid>
+                </div>
+            </div>
+        );
+    }
+
+    function playlistPage() {
+        return (
+            <div>
+                <div className="playlist">
+                    <h3>Playlist</h3>
+                    <Button variant="dark" className="playlistButton" onClick={() => getPlaylistVideos()}>Update</Button>
+                </div>
+                <div className="videosCollection">
+                    <Grid container xs={3} sm spacing={2} style={{ padding: "8px", marginLeft: "16px" }}>
+                        {displayPlaylistVideos(playlistVideos)}
+                    </Grid>
+                </div>
+            </div>
+        );
+    }
 
     return (
         <div className="App">
-            <p style={{ margin: "15px" }}>
-                Click the button to get a new list of videos
-      </p>
-            <Button variant="primary" onClick={() => queryDB()}>
-                Update
-      </Button>
-            <h2 style={{ marginTop: "20px" }}>Results</h2>
-            {getVideoIDList(queryResult)}
+            <NavBar />
+            <Router>
+                <Switch>
+                    <Route path="/videos">
+                        {videosPage()}
+                    </Route>
+                    <Route path="/playlist">
+                        {playlistPage()}
+                    </Route>
+                    <Route path="/">
+                        {videosPage()}
+                    </Route>
+                </Switch>
+            </Router>
         </div>
     );
 }

@@ -17,7 +17,7 @@ Milestone 0:
 Helped with brainstorming concept, created report and tested code.
 
 Milestone 1 :
-Added endpoints to backend API
+Added endpoints to backend API, edited report
 
 Name: Jin Huang
 Milestone 0:

@@ -17,12 +17,14 @@ Milestone 0:
 Helped with brainstorming concept, created report and tested code.
 
 Milestone 1 :
+Added endpoints to backend API
 
 Name: Jin Huang
 Milestone 0:
 fixed install script
 
 Milestone 1:
+Created ER diagram of database
 
 Name: Hussain Abdi - shrabdi
 Milestone 0:

@@ -32,14 +32,12 @@ def getUserPlaylists():
 @app.route("/playlist-videos", methods=['GET'])
 def getPlaylistVideos():
     id = request.args.get('id')
-    # playlistVideos = models.PlaylistVideo.query.filter_by(playlist_id=id)
-    # videos = []
-    # for video in playlistVideos:
-    #     v = models.Video.query.filter_by(id=video.video_id).first()
-    #     videos.append(v)
     videos = models.Video.query.join(models.PlaylistVideo, models.Video.id ==
                                      models.PlaylistVideo.video_id).filter(models.PlaylistVideo.playlist_id == id)
-    return jsonify([video.serialize() for video in videos])
+    seralized_videos = [video.serialize() for video in videos]
+    for video in seralized_videos:
+        video.update({"playlistvideo_id": id})
+    return jsonify(seralized_videos)
 
 
 @app.route("/playlist", methods=['POST'])
@@ -79,6 +77,6 @@ def removePlaylistVideo():
     id = request.args.get('id')
     models.PlaylistVideo.query.filter_by(id=id).delete()
     db.session.commit()
-    return "Success removed video from playlist"
+    return "Successfully removed video from playlist"
 
 # TODO: Use Youtube API to dynamically insert videos

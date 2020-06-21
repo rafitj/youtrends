@@ -1,0 +1,42 @@
+.App {
+  background-color: #FEFBF9;
+  padding-left: 16px;
+  max-width: 100%;
+}
+
+.filterButton, .playlistButon {
+  margin-right: 10px;
+}
+
+.videoButton {
+  margin-right: 10px;
+}
+
+.filters, .playlist {
+  padding-top: 80px;
+  padding-left: 48px;
+  background-color: #FEFBF9;
+}
+
+.videosCollection {
+  background-color: #FEFBF9;
+  margin-top: 32px;
+}
+
+.video {
+  border-radius: 25px;
+  border: 1px solid #A9A9A9;
+  background-color: #FEFBF9;
+}
+
+.videoImage {
+  border: 1px solid #A9A9A9;
+  border-radius: 12px;
+  max-width: 100%;
+  max-height: 100%;
+}
+
+.imageBox {
+  width: 300px;
+  height: 157px;
+}

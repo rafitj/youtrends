@@ -1,3 +1,8 @@
 runtime: python37
 beta_settings:
   cloud_sql_instances: cs348-project-279101:us-central1:cs348project
+env_variables:
+  CLOUDSQL_USER: root
+  CLOUDSQL_PASSWORD: 1300
+  CLOUDSQL_DATABASE: test_db
+  CLOUDSQL_CONNECTION_NAME: cs348-project-279101:us-central1:cs348project

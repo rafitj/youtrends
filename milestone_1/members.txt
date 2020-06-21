@@ -1,0 +1,13 @@
+Name: Hiro Ayettey - ehayette
+Progress: 
+
+Name: Rafit Jamil - rf2jamil 
+Progress: convert backend from node to flask, create all CRUD endpoints, seed database, integrate cloud sql and sql alchemy, create database schemas, convert ORM to SQL queries with sample output, create sql procedures, draw/generate ER Diagram, deploy to app engine 
+
+Name: Michael Qin - m6qin
+Progress: 
+
+Name: Jin Huang
+Progress: 
+
+Name: Hussain Abdi 

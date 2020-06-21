@@ -1,0 +1,42 @@
+SELECT * FROM Video;
++-----------------------------------------------------------------------+-----------+-----------+------------------------+-------------------+----+--------+-----+--------+----------------+
+|title                                                                  |id         |category_id|channel_id              |publish_time       |tags|views   |likes|dislikes|trending_country|
++-----------------------------------------------------------------------+-----------+-----------+------------------------+-------------------+----+--------+-----+--------+----------------+
+|SQL Basics | SQL | Tutorial 3                                          |hSv_88mDEio|NULL       |UCvmINlrza7JHB1zkIOuXEbw|2017-12-22 00:00:00|NULL|16761   |342  |1       |NULL            |
+|Tables & Keys | SQL | Tutorial 2                                       |uw6lx3R6q5A|NULL       |UCvmINlrza7JHB1zkIOuXEbw|2017-12-22 00:00:00|NULL|23018   |500  |3       |NULL            |
+|Introduction | SQL | Tutorial 1                                        |xmwI6VB_wUM|NULL       |UCvmINlrza7JHB1zkIOuXEbw|2017-12-22 00:00:00|NULL|64017   |768  |3       |NULL            |
+|The funniest and most humorous cat videos ever! - Funny cat compilation|XyNlqQId-nk|NULL       |UCKy3MG7_If9KlVuvw3rPMfw|2016-08-23 00:00:00|NULL|30902457|92000|15000   |NULL            |
+|What is a Database? | Let's Learn                                      |_Q07-8e3UbI|NULL       |UCvmINlrza7JHB1zkIOuXEbw|2017-12-22 00:00:00|NULL|26087   |520  |3       |NULL            |
++-----------------------------------------------------------------------+-----------+-----------+------------------------+-------------------+----+--------+-----+--------+----------------+
+
+SELECT * FROM video ORDER BY video.views DESC;
++-----------------------------------------------------------------------+-----------+-----------+------------------------+-------------------+----+--------+-----+--------+----------------+
+|title                                                                  |id         |category_id|channel_id              |publish_time       |tags|views   |likes|dislikes|trending_country|
++-----------------------------------------------------------------------+-----------+-----------+------------------------+-------------------+----+--------+-----+--------+----------------+
+|The funniest and most humorous cat videos ever! - Funny cat compilation|XyNlqQId-nk|NULL       |UCKy3MG7_If9KlVuvw3rPMfw|2016-08-23 00:00:00|NULL|30902457|92000|15000   |NULL            |
+|Introduction | SQL | Tutorial 1                                        |xmwI6VB_wUM|NULL       |UCvmINlrza7JHB1zkIOuXEbw|2017-12-22 00:00:00|NULL|64017   |768  |3       |NULL            |
+|What is a Database? | Let's Learn                                      |_Q07-8e3UbI|NULL       |UCvmINlrza7JHB1zkIOuXEbw|2017-12-22 00:00:00|NULL|26087   |520  |3       |NULL            |
+|Tables & Keys | SQL | Tutorial 2                                       |uw6lx3R6q5A|NULL       |UCvmINlrza7JHB1zkIOuXEbw|2017-12-22 00:00:00|NULL|23018   |500  |3       |NULL            |
+|SQL Basics | SQL | Tutorial 3                                          |hSv_88mDEio|NULL       |UCvmINlrza7JHB1zkIOuXEbw|2017-12-22 00:00:00|NULL|16761   |342  |1       |NULL            |
++-----------------------------------------------------------------------+-----------+-----------+------------------------+-------------------+----+--------+-----+--------+----------------+
+
+SELECT * FROM playlist;
++----------------------------------+------------+------------------------+
+|id                                |title       |user_id                 |
++----------------------------------+------------+------------------------+
+|PLyp73GSQkAGm7PBAI37oI8b0axk_YFYf0|SQL Playlist|UC_AywdN5mt3prkfuS_OtHkw|
++----------------------------------+------------+------------------------+
+
+SELECT video.* FROM playlist_video 
+JOIN video ON playlist_video.video_id=video.id
+WHERE playlist_video.playlist_id='<PLAYLIST_ID>'; 
++-----------------------------------------------------------------------+-----------+-----------+------------------------+-------------------+----+--------+-----+--------+----------------+
+|title                                                                  |id         |category_id|channel_id              |publish_time       |tags|views   |likes|dislikes|trending_country|
++-----------------------------------------------------------------------+-----------+-----------+------------------------+-------------------+----+--------+-----+--------+----------------+
+|The funniest and most humorous cat videos ever! - Funny cat compilation|XyNlqQId-nk|NULL       |UCKy3MG7_If9KlVuvw3rPMfw|2016-08-23 00:00:00|NULL|30902457|92000|15000   |NULL            |
+|The funniest and most humorous cat videos ever! - Funny cat compilation|XyNlqQId-nk|NULL       |UCKy3MG7_If9KlVuvw3rPMfw|2016-08-23 00:00:00|NULL|30902457|92000|15000   |NULL            |
+|SQL Basics | SQL | Tutorial 3                                          |hSv_88mDEio|NULL       |UCvmINlrza7JHB1zkIOuXEbw|2017-12-22 00:00:00|NULL|16761   |342  |1       |NULL            |
+|What is a Database? | Let's Learn                                      |_Q07-8e3UbI|NULL       |UCvmINlrza7JHB1zkIOuXEbw|2017-12-22 00:00:00|NULL|26087   |520  |3       |NULL            |
+|Tables & Keys | SQL | Tutorial 2                                       |uw6lx3R6q5A|NULL       |UCvmINlrza7JHB1zkIOuXEbw|2017-12-22 00:00:00|NULL|23018   |500  |3       |NULL            |
+|Introduction | SQL | Tutorial 1                                        |xmwI6VB_wUM|NULL       |UCvmINlrza7JHB1zkIOuXEbw|2017-12-22 00:00:00|NULL|64017   |768  |3       |NULL            |
++-----------------------------------------------------------------------+-----------+-----------+------------------------+-------------------+----+--------+-----+--------+----------------+

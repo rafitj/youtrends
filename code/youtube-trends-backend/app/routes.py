@@ -5,14 +5,17 @@ from flask import abort, jsonify, request
 
 from app import app, models, db
 
+
 @app.route("/")
 def home():
     return "Hello world! Try route 'videosByViews'"
+
 
 @app.route("/videos", methods=['GET'])
 def getAllVideos():
     videos = models.Video.query.all()
     return jsonify([video.serialize() for video in videos])
+
 
 @app.route("/videosByViews", methods=['GET'])
 def getVideosByViews():
@@ -29,11 +32,13 @@ def getUserPlaylists():
 @app.route("/playlist-videos", methods=['GET'])
 def getPlaylistVideos():
     id = request.args.get('id')
-    playlistVideos = models.PlaylistVideo.query.filter_by(playlist_id=id)
-    videos = []
-    for video in playlistVideos:
-        v = models.Video.query.filter_by(id=video.video_id).first()
-        videos.append(v)
+    # playlistVideos = models.PlaylistVideo.query.filter_by(playlist_id=id)
+    # videos = []
+    # for video in playlistVideos:
+    #     v = models.Video.query.filter_by(id=video.video_id).first()
+    #     videos.append(v)
+    videos = models.Video.query.join(models.PlaylistVideo, models.Video.id ==
+                                     models.PlaylistVideo.video_id).filter(models.PlaylistVideo.playlist_id == id)
     return jsonify([video.serialize() for video in videos])
 
 
@@ -77,6 +82,3 @@ def removePlaylistVideo():
     return "Success removed video from playlist"
 
 # TODO: Use Youtube API to dynamically insert videos
-# @app.route("/video", methods=['POST'])
-# def insertVideo():
-#     pass

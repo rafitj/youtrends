@@ -14,6 +14,8 @@ import {
     Route,
 } from "react-router-dom";
 import PlaylistVideo from './playlistVideo.jsx'
+import DayPickerInput from 'react-day-picker/DayPickerInput';
+import 'react-day-picker/lib/style.css';
 
 const url = "http://127.0.0.1:5000"
 const playlistID = "PLyp73GSQkAGm7PBAI37oI8b0axk_YFYf0"
@@ -33,6 +35,7 @@ function displayPlaylistVideos(videos) {
 function App() {
     const [videos, setVideos] = useState([]);
     const [playlistVideos, setPlaylistVideos] = useState([]);
+    const [startDate, setDate] = useState(new Date());
 
     function getVideos() {
         axios.get(url + "/videos")
@@ -104,16 +107,23 @@ function App() {
                         </Grid>
                         <Grid item>
                             <Dropdown onSelect={(key, evt) => getVideosByCountry(key, evt)}>
-                                <Dropdown.Toggle variant="success" id="dropdown-basic" >
+                                <Dropdown.Toggle variant="dark" id="dropdown-basic" >
                                     Country
                                 </Dropdown.Toggle>
 
                                 <Dropdown.Menu>
                                     <Dropdown.Item onClick={() => getVideosByLikesRatio("US")}>US</Dropdown.Item>
-                                    <Dropdown.Item onClick={() => getVideosByLikesRatio("Canada")}>Canada</Dropdown.Item>
-                                    <Dropdown.Item onClick={() => getVideosByLikesRatio("Other")}>Other</Dropdown.Item>
+                                    <Dropdown.Item onClick={() => getVideosByLikesRatio("CA")}>Canada</Dropdown.Item>
+                                    <Dropdown.Item onClick={() => getVideosByLikesRatio("JP")}>Japan</Dropdown.Item>
+                                    <Dropdown.Item onClick={() => getVideosByLikesRatio("RU")}>Russia</Dropdown.Item>
+                                    <Dropdown.Item onClick={() => getVideosByLikesRatio("MX")}>Mexico</Dropdown.Item>
+                                    <Dropdown.Item onClick={() => getVideosByLikesRatio("KR")}>South Korea</Dropdown.Item>
+                                    <Dropdown.Item onClick={() => getVideosByLikesRatio("IN")}>India</Dropdown.Item>
                                 </Dropdown.Menu>
                             </Dropdown>
+                        </Grid>
+                        <Grid item>
+                            <DayPickerInput placeholder={startDate.toDateString()} valueDefault={startDate} onDayChange={formattedVal => setDate(formattedVal)}/>
                         </Grid>
                     </Grid>
                 </div>

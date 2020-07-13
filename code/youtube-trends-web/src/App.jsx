@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "./CSS/App.css";
 import Button from "react-bootstrap/Button";
+import Dropdown from "react-bootstrap/Dropdown";
 import "./CSS/bootstrap.css";
 import axios from 'axios'
 import NavBar from "./Navbar.jsx"
@@ -45,6 +46,29 @@ function App() {
             .catch(err => console.error(err))
     }
 
+    // Sorting by Likes
+    function getVideosByLikes() {
+        axios.get(url + "/videosByLikes")
+            .then(response => setVideos(response.data))
+            .catch(err => console.error(err))
+    }
+
+
+    // Sorting by likes ratio
+    function getVideosByLikesRatio() {
+        axios.get(url + "/videosByLikesRatio")
+            .then(response => setVideos(response.data))
+            .catch(err => console.error(err))
+    }
+
+    // Sorting by Country with key being the string of the country
+    function getVideosByCountry(key, evt) {
+        axios.get(url + "/videosByLikesCountry", key)
+            .then(response => setVideos(response.data))
+            .catch(err => console.error(err))
+    }
+
+
     function getPlaylistVideos() {
         axios.get(url + "/playlist-videos", {
             params: {
@@ -56,6 +80,7 @@ function App() {
     }
 
     useEffect(() => {
+        // refresh-database-with-youtube-api
         getVideos();
         getPlaylistVideos();
     }, []);
@@ -67,6 +92,19 @@ function App() {
                     <h3>Filters</h3>
                     <Button variant="dark" className="filterButton" onClick={() => getVideos()}>Unsorted</Button>
                     <Button variant="dark" className="filterButton" onClick={() => getVideosByViews()}>Sort by Views</Button>
+                    <Button variant="dark" className="filterButton" onClick={() => getVideosByLikes()}>Sort by Likes</Button>
+                    <Button variant="dark" className="filterButton" onClick={() => getVideosByLikesRatio()}>Sort by Likes Ratio</Button>
+                    <Dropdown onSelect={(key, evt) => getVideosByCountry(key, evt)}>
+                    <Dropdown.Toggle variant="success" id="dropdown-basic" >
+                            Country
+                        </Dropdown.Toggle>
+
+                        <Dropdown.Menu>
+                            <Dropdown.Item href="US">US</Dropdown.Item>
+                            <Dropdown.Item href="Canada">Canada</Dropdown.Item>
+                            <Dropdown.Item href="Other">Other</Dropdown.Item>
+                        </Dropdown.Menu>
+                    </Dropdown>
                 </div>
                 <div className="videosCollection">
                     <Grid container xs={3} sm spacing={2} style={{ padding: "8px", marginLeft: "16px" }}>

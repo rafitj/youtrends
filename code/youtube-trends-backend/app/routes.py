@@ -1,14 +1,43 @@
 import logging
 import uuid
 
-from flask import abort, jsonify, request
+from flask import abort, jsonify, request, redirect, url_for, session
 
-from app import app, models, db
+from app import app, models, db, oauth
 
 
 @app.route("/")
 def home():
-    return "Hello world! Try route 'videosByViews'"
+    email = dict(session)['profile']['email']
+    return f'Hello {email}! Try route videosByViews'
+
+
+@app.route('/login')
+def login():
+    google = oauth.create_client('google')  # create the google oauth client
+    redirect_uri = url_for('authorize', _external=True)
+    return google.authorize_redirect(redirect_uri)
+
+
+@app.route('/authorize')
+def authorize():
+    google = oauth.create_client('google')  # create the google oauth client
+    # Access token from google (needed to get user info)
+    token = google.authorize_access_token()
+    # userinfo contains stuff u specificed in the scrope
+    resp = google.get('userinfo')
+    user_info = resp.json()
+    user = oauth.google.userinfo()
+    session['profile'] = user_info
+    session.permanent = True
+    return redirect('/')
+
+
+@app.route('/logout')
+def logout():
+    for key in list(session.keys()):
+        session.pop(key)
+    return redirect('/')
 
 
 @app.route("/videos", methods=['GET'])

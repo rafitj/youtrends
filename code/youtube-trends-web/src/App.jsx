@@ -123,7 +123,7 @@ function App() {
                             </Dropdown>
                         </Grid>
                         <Grid item>
-                            <DayPickerInput placeholder={startDate.toDateString()} valueDefault={startDate} onDayChange={formattedVal => setDate(formattedVal)}/>
+                            <DayPickerInput placeholder={startDate.toDateString()} onDayChange={formattedVal => getVideosByCountry(formattedVal)}/>
                         </Grid>
                     </Grid>
                 </div>

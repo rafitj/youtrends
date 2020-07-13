@@ -62,12 +62,11 @@ function App() {
     }
 
     // Sorting by Country with key being the string of the country
-    function getVideosByCountry(key, evt) {
+    function getVideosByCountry(key) {
         axios.get(url + "/videosByLikesCountry", key)
             .then(response => setVideos(response.data))
             .catch(err => console.error(err))
     }
-
 
     function getPlaylistVideos() {
         axios.get(url + "/playlist-videos", {
@@ -90,21 +89,33 @@ function App() {
             <div>
                 <div className="filters">
                     <h3>Filters</h3>
-                    <Button variant="dark" className="filterButton" onClick={() => getVideos()}>Unsorted</Button>
-                    <Button variant="dark" className="filterButton" onClick={() => getVideosByViews()}>Sort by Views</Button>
-                    <Button variant="dark" className="filterButton" onClick={() => getVideosByLikes()}>Sort by Likes</Button>
-                    <Button variant="dark" className="filterButton" onClick={() => getVideosByLikesRatio()}>Sort by Likes Ratio</Button>
-                    <Dropdown onSelect={(key, evt) => getVideosByCountry(key, evt)}>
-                    <Dropdown.Toggle variant="success" id="dropdown-basic" >
-                            Country
-                        </Dropdown.Toggle>
+                    <Grid container xs={3} sm spacing={1}>
+                        <Grid item>
+                            <Button variant="dark" className="filterButton" onClick={() => getVideos()}>Unsorted</Button>
+                        </Grid>
+                        <Grid item>
+                            <Button variant="dark" className="filterButton" onClick={() => getVideosByViews()}>Sort by Views</Button>
+                        </Grid>
+                        <Grid item>
+                            <Button variant="dark" className="filterButton" onClick={() => getVideosByLikes()}>Sort by Likes</Button>
+                        </Grid>
+                        <Grid item>
+                            <Button variant="dark" className="filterButton" onClick={() => getVideosByLikesRatio()}>Sort by Likes Ratio</Button>
+                        </Grid>
+                        <Grid item>
+                            <Dropdown onSelect={(key, evt) => getVideosByCountry(key, evt)}>
+                                <Dropdown.Toggle variant="success" id="dropdown-basic" >
+                                    Country
+                                </Dropdown.Toggle>
 
-                        <Dropdown.Menu>
-                            <Dropdown.Item href="US">US</Dropdown.Item>
-                            <Dropdown.Item href="Canada">Canada</Dropdown.Item>
-                            <Dropdown.Item href="Other">Other</Dropdown.Item>
-                        </Dropdown.Menu>
-                    </Dropdown>
+                                <Dropdown.Menu>
+                                    <Dropdown.Item onClick={() => getVideosByLikesRatio("US")}>US</Dropdown.Item>
+                                    <Dropdown.Item onClick={() => getVideosByLikesRatio("Canada")}>Canada</Dropdown.Item>
+                                    <Dropdown.Item onClick={() => getVideosByLikesRatio("Other")}>Other</Dropdown.Item>
+                                </Dropdown.Menu>
+                            </Dropdown>
+                        </Grid>
+                    </Grid>
                 </div>
                 <div className="videosCollection">
                     <Grid container xs={3} sm spacing={2} style={{ padding: "8px", marginLeft: "16px" }}>

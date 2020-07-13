@@ -66,7 +66,11 @@ function App() {
 
     // Sorting by Country with key being the string of the country
     function getVideosByCountry(key) {
-        axios.get(url + "/videosByLikesCountry", key)
+        axios.get(url + "/videosByLikesCountry", {
+            params: {
+                date: key
+            }
+        })
             .then(response => setVideos(response.data))
             .catch(err => console.error(err))
     }

@@ -1,23 +1,20 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Navbar, Nav } from 'react-bootstrap';
 import "./CSS/bootstrap.css";
-import axios from 'axios';
-import Cookies from 'universal-cookie';
+import Cookies from "universal-cookie";
 
 const url = "http://127.0.0.1:5000"
-const cookies = new Cookies();
-
-function setLoginCookie(response) {
-    cookies.set('login_id', response.id, { path: '/', expires: 86400 });
-    cookies.set('login_family_name', response.family_name, { path: '/', expires: 86400 });
-}
 
 function NavBar() {
-    function login() {
-        axios.get(url + "/login")
-            .then(response => setLoginCookie(response.data))
-            .catch(err => console.error(err))
-    }
+    const [isAuthenticated, setIsAuthenticated] = useState(false);
+
+    useEffect(() => {
+        let cookies = new Cookies()
+
+        if (cookies.get('user_name') && cookies.get('user_id')) {
+            setIsAuthenticated(true)
+        }
+    })
 
     return (
         <Navbar bg="light" variant="light" expand="lg" fixed="top">
@@ -25,7 +22,7 @@ function NavBar() {
             <Nav className="ml-auto">
                 <Nav.Link href="/videos">Videos</Nav.Link>
                 <Nav.Link href="/playlist">Playlist</Nav.Link>
-                <Nav.Link onClick={() => login()}>Login</Nav.Link>
+                {!isAuthenticated && <Nav.Link href={url + "/login"}>Login</Nav.Link>}
             </Nav>
         </Navbar>
     );

@@ -1,7 +1,7 @@
 import logging
 import uuid
 
-from flask import abort, jsonify, request, redirect, url_for, session
+from flask import abort, jsonify, request, redirect, url_for, session, make_response
 
 from app import app, models, db, oauth, youtube_api, decorators
 
@@ -37,7 +37,9 @@ def authorize():
         id=profile['id'], first_name=profile['given_name'], last_name=profile['family_name'])
     db.session.merge(user)
     db.session.commit()
-    return profile
+    redirecturl = f'http://localhost:3000/authorize?id=' + \
+        profile["id"] + '&name=' + profile["name"]
+    return redirect(redirecturl)
 
 
 @app.route('/logout')

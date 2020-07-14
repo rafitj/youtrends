@@ -12,17 +12,21 @@ import {
     BrowserRouter as Router,
     Switch,
     Route,
+    Redirect,
 } from "react-router-dom";
 import PlaylistVideo from './playlistVideo.jsx'
 import DayPickerInput from 'react-day-picker/DayPickerInput';
 import 'react-day-picker/lib/style.css';
+import 'query-string'
+import { parse } from "query-string";
+import Cookies from 'universal-cookie';
 
 const url = "http://127.0.0.1:5000"
 const playlistID = "PLyp73GSQkAGm7PBAI37oI8b0axk_YFYf0"
 
 function displayVideos(videos) {
     return videos.map((video) => (
-            Video(video.thumbnail.includes(".jpg") ? video.thumbnail : defaultThumbnail, video.title, video.views, video.publish_time, video.id, playlistID)
+        Video(video.thumbnail.includes(".jpg") ? video.thumbnail : defaultThumbnail, video.title, video.views, video.publish_time, video.id, playlistID)
     ));
 }
 
@@ -176,16 +180,29 @@ function App() {
         );
     }
 
+    function auth() {
+        const cookies = new Cookies();
+        let user_data = parse(window.location.search)
+        if (user_data.id && user_data.name) {
+            cookies.set('user_id', user_data.id);
+            cookies.set('user_name', user_data.name);
+        }
+        return <Redirect to='/' />
+    }
+
     return (
         <div className="App">
             <NavBar />
             <Router>
                 <Switch>
-                    <Route path="/videos">
+                    <Route exact path="/videos">
                         {videosPage()}
                     </Route>
-                    <Route path="/playlist">
+                    <Route exact path="/playlist">
                         {playlistPage()}
+                    </Route>
+                    <Route exact path="/authorize">
+                        {auth()}
                     </Route>
                     <Route path="/">
                         {videosPage()}

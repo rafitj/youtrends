@@ -3,13 +3,17 @@ import uuid
 
 from flask import abort, jsonify, request, redirect, url_for, session
 
-from app import app, models, db, oauth
+from app import app, models, db, oauth, youtube_api
 
 
 @app.route("/")
 def home():
-    email = dict(session)['profile']['email']
-    return f'Hello {email}! Try route videosByViews'
+    session_dict = dict(session)
+    print(session_dict)
+    if 'profile' in session_dict and 'email' in session_dict['profile']:
+        email = dict(session)['profile']['email']
+        return f'Hello {email}! Try route videosByViews'
+    return 'Hi! Please login.'
 
 
 @app.route('/login')
@@ -21,15 +25,19 @@ def login():
 
 @app.route('/authorize')
 def authorize():
-    google = oauth.create_client('google')  # create the google oauth client
-    # Access token from google (needed to get user info)
+    google = oauth.create_client('google')
     token = google.authorize_access_token()
-    # userinfo contains stuff u specificed in the scrope
     resp = google.get('userinfo')
     user_info = resp.json()
     user = oauth.google.userinfo()
     session['profile'] = user_info
+    profile = session['profile']
     session.permanent = True
+    # store in database
+    user = models.User(
+        id=profile['id'], first_name=profile['given_name'], last_name=profile['family_name'])
+    db.session.merge(user)
+    db.session.commit()
     return redirect('/')
 
 
@@ -38,6 +46,12 @@ def logout():
     for key in list(session.keys()):
         session.pop(key)
     return redirect('/')
+
+
+@app.rout("/load-videos", methods=['GET'])
+def loadYoutubeVideos():
+    youtube_api.getVideos()
+    return "Success"
 
 
 @app.route("/videos", methods=['GET'])

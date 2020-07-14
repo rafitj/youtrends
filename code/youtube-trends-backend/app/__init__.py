@@ -28,7 +28,7 @@ google = oauth.register(
     client_kwargs={'scope': 'openid email profile'},
 )
 # Session config
-app.secret_key = os.getenv("APP_SECRET_KEY")
+# app.secret_key = os.getenv("APP_SECRET_KEY")
 app.config['SESSION_COOKIE_NAME'] = 'google-login-session'
 app.config['PERMANENT_SESSION_LIFETIME'] = timedelta(minutes=40)
 

@@ -21,16 +21,24 @@ import 'query-string'
 import { parse } from "query-string";
 import Cookies from 'universal-cookie';
 
+const cookies = new Cookies()
 const url = "http://127.0.0.1:5000"
-const playlistID = "PLyp73GSQkAGm7PBAI37oI8b0axk_YFYf0"
 
 function displayVideos(videos) {
+    if (!Array.isArray(videos)) {
+        return
+    }
+
     return videos.map((video) => (
-        Video(video.thumbnail.includes(".jpg") ? video.thumbnail : defaultThumbnail, video.title, video.views, video.publish_time, video.id, playlistID)
-    ));
+        Video(video.thumbnail.includes(".jpg") ? video.thumbnail : defaultThumbnail, video.title, video.views, video.publish_time, video.id)
+    )).slice(0,50);
 }
 
 function displayPlaylistVideos(videos) {
+    if (!Array.isArray(videos)) {
+        return
+    }
+
     return videos.map((video) => (
         PlaylistVideo(video.thumbnail.includes(".jpg") ? video.thumbnail : defaultThumbnail, video.title, video.views, video.publish_time, video.id, video.playlistvideo_id)
     ));
@@ -38,6 +46,7 @@ function displayPlaylistVideos(videos) {
 
 function App() {
     const [videos, setVideos] = useState([]);
+    const [playlists, setPlaylists] = useState([]);
     const [playlistVideos, setPlaylistVideos] = useState([]);
     const [startDate, setDate] = useState(new Date());
 
@@ -90,13 +99,55 @@ function App() {
     }
 
     function getPlaylistVideos() {
-        axios.get(url + "/playlist-videos", {
-            params: {
-                id: playlistID
-            }
-        })
+        //If playlist_ID is set, get the videos from it
+        if (cookies.get('playlist_ID')) {
+            console.log("playlist id is " + playlists[0].id)
+            axios.get(url + "/playlist-videos", {
+                params: {
+                    id: cookies.get('playlist_ID')
+                }
+            })
             .then(response => setPlaylistVideos(response.data))
             .catch(err => console.error(err))
+            return
+        }
+
+        //Otherwise if user is logged in, check for their playlists
+        if (cookies.get('user_name') && cookies.get('user_id')) {
+            axios.get(url + "/playlists")
+                .then(response => setPlaylists(response.data))
+                .catch(err => console.error(err))
+        } else {
+            return
+        }
+
+        //If they have a playlist, get videos, otherwise make a playlist and set playlist_ID
+        if (Array.isArray(playlists) && playlists.length > 0) {
+            cookies.set('playlist_ID', playlists[0].id)
+            console.log("playlist id is " + playlists[0].id)
+            axios.get(url + "/playlist-videos", {
+                params: {
+                    id: cookies.get('playlist_ID')
+                }
+            })
+            .then(response => setPlaylistVideos(response.data))
+            .catch(err => console.error(err))
+        } else {
+            axios.post(url + "/playlist",
+                {
+                    title: "Default Playlist Title, Milestone 2",
+                    user_id: cookies.get('user_id')
+                })
+                .then(response => console.log(response))
+                .catch(err => console.error(err))
+
+            axios.get(url + "/playlists")
+                .then(response => setPlaylists(response.data))
+                .catch(err => console.error(err))
+            if (Array.isArray(playlists) && playlists.length > 0) {
+                cookies.set('playlist_ID', playlists[0].id)
+            }
+        }
     }
 
     function updateDBWithYoutubeAPI() {
@@ -106,7 +157,7 @@ function App() {
 
     useEffect(() => {
         getVideos();
-        // getPlaylistVideos();
+        getPlaylistVideos();
     }, []);
 
     function videosPage() {
@@ -181,7 +232,6 @@ function App() {
     }
 
     function auth() {
-        const cookies = new Cookies();
         let user_data = parse(window.location.search)
         if (user_data.id && user_data.name) {
             cookies.set('user_id', user_data.id);

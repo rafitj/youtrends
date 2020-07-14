@@ -48,7 +48,7 @@ def logout():
     return redirect('/')
 
 
-@app.rout("/load-videos", methods=['GET'])
+@app.route("/load-videos", methods=['GET'])
 def loadYoutubeVideos():
     youtube_api.getVideos()
     return "Success"
@@ -56,7 +56,7 @@ def loadYoutubeVideos():
 
 @app.route("/videos", methods=['GET'])
 def getAllVideos():
-    videos = models.Video.query.all()
+    videos = models.Video.query.limit(50)
     return jsonify([video.serialize() for video in videos])
 
 

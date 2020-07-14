@@ -19,10 +19,10 @@ def getVideos():
     videos = []
     resultsLeft = response['pageInfo']['totalResults']
     resultsPerPage = response['pageInfo']['resultsPerPage']
-    print(response['items'])
     while True:
         videos = videos + [
             models.Video(id=v['id'], title=cleanTitle(v['snippet']['title']), category_id=v['snippet']['categoryId'],
+                         thumbnail=v['snippet']['thumbnails']['high']['url'],
                          channel_id=v['snippet']['channelId'], publish_time=(
                              v['snippet']['publishedAt']).split('T')[0],
                          views=v['statistics']['viewCount'], likes=v['statistics']['likeCount'] if 'likeCount' in v['statistics'] else 0,

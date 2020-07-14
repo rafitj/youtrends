@@ -56,7 +56,6 @@ function App() {
             .catch(err => console.error(err))
     }
 
-
     // Sorting by likes ratio
     function getVideosByLikesRatio() {
         axios.get(url + "/videosByLikesRatio")
@@ -75,6 +74,16 @@ function App() {
             .catch(err => console.error(err))
     }
 
+    function getVideosByDate(key) {
+        axios.get(url + "/videosByDate", {
+            params: {
+                date: key
+            }
+        })
+            .then(response => setVideos(response.data))
+            .catch(err => console.error(err))
+    }
+
     function getPlaylistVideos() {
         axios.get(url + "/playlist-videos", {
             params: {
@@ -85,8 +94,12 @@ function App() {
             .catch(err => console.error(err))
     }
 
+    function updateDBWithYoutubeAPI() {
+        axios.get(url + "/load-videos")
+            .catch(err => console.error(err))
+    }
+
     useEffect(() => {
-        // refresh-database-with-youtube-api
         getVideos();
         getPlaylistVideos();
     }, []);
@@ -110,24 +123,27 @@ function App() {
                             <Button variant="dark" className="filterButton" onClick={() => getVideosByLikesRatio()}>Sort by Likes Ratio</Button>
                         </Grid>
                         <Grid item>
+                            <Button variant="warning" className="filterButton" onClick={() => updateDBWithYoutubeAPI()}>Update DB with Youtube API</Button>
+                        </Grid>
+                        <Grid item>
                             <Dropdown onSelect={(key, evt) => getVideosByCountry(key, evt)}>
                                 <Dropdown.Toggle variant="dark" id="dropdown-basic" >
-                                    Country
+                                    Sort By Trending Country
                                 </Dropdown.Toggle>
 
                                 <Dropdown.Menu>
-                                    <Dropdown.Item onClick={() => getVideosByLikesRatio("US")}>US</Dropdown.Item>
-                                    <Dropdown.Item onClick={() => getVideosByLikesRatio("CA")}>Canada</Dropdown.Item>
-                                    <Dropdown.Item onClick={() => getVideosByLikesRatio("JP")}>Japan</Dropdown.Item>
-                                    <Dropdown.Item onClick={() => getVideosByLikesRatio("RU")}>Russia</Dropdown.Item>
-                                    <Dropdown.Item onClick={() => getVideosByLikesRatio("MX")}>Mexico</Dropdown.Item>
-                                    <Dropdown.Item onClick={() => getVideosByLikesRatio("KR")}>South Korea</Dropdown.Item>
-                                    <Dropdown.Item onClick={() => getVideosByLikesRatio("IN")}>India</Dropdown.Item>
+                                    <Dropdown.Item onClick={() => getVideosByCountry("US")}>US</Dropdown.Item>
+                                    <Dropdown.Item onClick={() => getVideosByCountry("CA")}>Canada</Dropdown.Item>
+                                    <Dropdown.Item onClick={() => getVideosByCountry("JP")}>Japan</Dropdown.Item>
+                                    <Dropdown.Item onClick={() => getVideosByCountry("RU")}>Russia</Dropdown.Item>
+                                    <Dropdown.Item onClick={() => getVideosByCountry("MX")}>Mexico</Dropdown.Item>
+                                    <Dropdown.Item onClick={() => getVideosByCountry("KR")}>South Korea</Dropdown.Item>
+                                    <Dropdown.Item onClick={() => getVideosByCountry("IN")}>India</Dropdown.Item>
                                 </Dropdown.Menu>
                             </Dropdown>
                         </Grid>
                         <Grid item>
-                            <DayPickerInput placeholder={startDate.toDateString()} onDayChange={formattedVal => getVideosByCountry(formattedVal)}/>
+                            <DayPickerInput placeholder={"Sort By Trending Date"} onDayChange={formattedVal => getVideosByDate(formattedVal)} />
                         </Grid>
                     </Grid>
                 </div>

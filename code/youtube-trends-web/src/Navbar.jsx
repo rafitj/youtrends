@@ -8,7 +8,7 @@ const url = "http://127.0.0.1:5000"
 const cookies = new Cookies();
 
 function setLoginCookie(response) {
-    cookies.set('login_user_id', response.user_id, { path: '/', expires: 86400 });
+    cookies.set('login_id', response.id, { path: '/', expires: 86400 });
     cookies.set('login_family_name', response.family_name, { path: '/', expires: 86400 });
 }
 

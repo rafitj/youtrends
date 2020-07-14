@@ -118,15 +118,17 @@ function App() {
                             <Button variant="dark" className="filterButton" onClick={() => getVideosByViews()}>Sort by Views</Button>
                         </Grid>
                         <Grid item>
+                            {/* untested */}
                             <Button variant="dark" className="filterButton" onClick={() => getVideosByLikes()}>Sort by Likes</Button>
                         </Grid>
                         <Grid item>
-                            <Button variant="dark" className="filterButton" onClick={() => getVideosByLikesRatio()}>Sort by Likes Ratio</Button>
+                            {/* <Button variant="dark" className="filterButton" onClick={() => getVideosByLikesRatio()}>Sort by Likes Ratio</Button> */}
                         </Grid>
                         <Grid item>
                             <Button variant="warning" className="filterButton" onClick={() => updateDBWithYoutubeAPI()}>Update DB with Youtube API</Button>
                         </Grid>
                         <Grid item>
+                            {/* untested */}
                             <Dropdown onSelect={(key, evt) => getVideosByCountry(key, evt)}>
                                 <Dropdown.Toggle variant="dark" id="dropdown-basic" >
                                     Sort By Trending Country
@@ -143,6 +145,7 @@ function App() {
                                 </Dropdown.Menu>
                             </Dropdown>
                         </Grid>
+                        {/* untested */}
                         <Grid item>
                             <DayPickerInput placeholder={"Sort By Publish Date"} onDayChange={formattedVal => getVideosByDate(formattedVal)} />
                         </Grid>

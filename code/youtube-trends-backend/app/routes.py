@@ -82,11 +82,11 @@ def getVideosByCountry():
     return jsonify([video.serialize() for video in videos])
 
 #TODO: Parse date? Verify date format from frontend
-# @app.route("/videosOnDate", methods=['GET'])
-# def getVideosOnDate():
-#     date = request.args.get('date')
-#     videos = models.Video.query.filter(models.Video.publish_time == date).order_by(models.Video.likes.desc()).all()
-#     return jsonify([video.serialize() for video in videos])
+@app.route("/videosOnDate", methods=['GET'])
+def getVideosOnDate():
+    date = request.args.get('date')
+    videos = models.Video.query.filter(models.Video.publish_time == date).order_by(models.Video.likes.desc()).all()
+    return jsonify([video.serialize() for video in videos])
 
 @app.route("/playlists", methods=['GET'])
 @decorators.auth_required

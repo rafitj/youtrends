@@ -12,3 +12,5 @@ Run the command `chmod +x install.sh` and `chmod +x run.sh`
 <br/>
 Followed by `./install.sh`
 then run with `./run.sh`
+
+To start proxy locally: ./cloud_sql_proxy -instances=cs348-project-279101:us-central1:cs348project=tcp:3306

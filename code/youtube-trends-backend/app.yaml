@@ -6,3 +6,6 @@ env_variables:
   CLOUDSQL_PASSWORD: 1300
   CLOUDSQL_DATABASE: test_db
   CLOUDSQL_CONNECTION_NAME: cs348-project-279101:us-central1:cs348project
+  GOOGLE_CLIENT_ID: 395948157251-rgd9v2k1qpctcdfhp9ujamm83q32u41d.apps.googleusercontent.com
+  GOOGLE_CLIENT_SECRET: gZzNV3NQYRbKVu_eMrPX51u5
+  API_DEVELOPER_KEY: AIzaSyA8PIrQmpVinNrNvybzS8o_DoPtlQEDchk

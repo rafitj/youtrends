@@ -28,7 +28,7 @@ function displayVideos(videos) {
 
 function displayPlaylistVideos(videos) {
     return videos.map((video) => (
-        PlaylistVideo(defaultThumbnail, video.title, video.views, video.publish_time, video.id, video.playlistvideo_id)
+        PlaylistVideo(video.thumbnail.includes(".jpg") ? video.thumbnail : defaultThumbnail, video.title, video.views, video.publish_time, video.id, video.playlistvideo_id)
     ));
 }
 
@@ -75,10 +75,10 @@ function App() {
     }
 
     function getVideosByDate(key) {
-        key.setHours(0)
+        key.setHours(-4) //To convert hour to midnight
         axios.get(url + "/videosOnDate", {
             params: {
-                date: key
+                date: key.toUTCString()
             }
         })
             .then(response => setVideos(response.data))

@@ -22,7 +22,7 @@ const playlistID = "PLyp73GSQkAGm7PBAI37oI8b0axk_YFYf0"
 
 function displayVideos(videos) {
     return videos.map((video) => (
-        Video(defaultThumbnail, video.title, video.views, video.publish_time, video.id, playlistID)
+            Video(video.thumbnail.includes(".jpg") ? video.thumbnail : defaultThumbnail, video.title, video.views, video.publish_time, video.id, playlistID)
     ));
 }
 
@@ -65,9 +65,9 @@ function App() {
 
     // Sorting by Country with key being the string of the country
     function getVideosByCountry(key) {
-        axios.get(url + "/videosByLikesCountry", {
+        axios.get(url + "/videosTrendingByCountry", {
             params: {
-                date: key
+                country: key
             }
         })
             .then(response => setVideos(response.data))
@@ -75,7 +75,8 @@ function App() {
     }
 
     function getVideosByDate(key) {
-        axios.get(url + "/videosByDate", {
+        key.setHours(0)
+        axios.get(url + "/videosOnDate", {
             params: {
                 date: key
             }
@@ -101,7 +102,7 @@ function App() {
 
     useEffect(() => {
         getVideos();
-        getPlaylistVideos();
+        // getPlaylistVideos();
     }, []);
 
     function videosPage() {
@@ -143,7 +144,7 @@ function App() {
                             </Dropdown>
                         </Grid>
                         <Grid item>
-                            <DayPickerInput placeholder={"Sort By Trending Date"} onDayChange={formattedVal => getVideosByDate(formattedVal)} />
+                            <DayPickerInput placeholder={"Sort By Publish Date"} onDayChange={formattedVal => getVideosByDate(formattedVal)} />
                         </Grid>
                     </Grid>
                 </div>

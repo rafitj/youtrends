@@ -22,7 +22,7 @@ function addVideoToPlaylist(videoID, playlistID) {
 function Video(thumbnail, title, views, date, ID, playlistID) {
     var url = "https://youtube.com/watch?v=" + ID
     return (
-        <Grid container xs={3} spacing={2} className="video" style={{ padding: "8px", margin: "20px" }}>
+        <Grid container xs={3} spacing={2} className="video" justify="center" style={{padding: "8px", margin: "20px" }}>
             <Grid item>
                 <a href={url}>
                     <ButtonBase>
@@ -32,11 +32,11 @@ function Video(thumbnail, title, views, date, ID, playlistID) {
                     </ButtonBase>
                 </a>
             </Grid>
-            <Grid item container>
-                <Grid item xs container direction="column" spacing={2}>
+            <Grid item>
+                <Grid direction="column" spacing={2}>
                     <Grid item xs>
                         <Typography gutterBottom variant="h5">
-                            {title}
+                            {title.substring(0,20)}
                         </Typography>
                         <Typography variant="body1" gutterBottom>
                             {"Views: " + views}

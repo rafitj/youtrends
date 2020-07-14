@@ -1,0 +1,1 @@
+~/cloud_sql_proxy -instances=cs348-project-279101:us-central1:cs348project=tcp:3306

@@ -38,7 +38,7 @@ function PlaylistVideo(thumbnail, title, views, date, ID, playlistVideoID) {
                             {title.substring(0,20)}
                         </Typography>
                         <Typography variant="body1" gutterBottom>
-                            {"Views: " + views}
+                            {"Views: " + views.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
                         </Typography>
                         <Typography variant="body1" gutterBottom>
                             {"Published: " + date}

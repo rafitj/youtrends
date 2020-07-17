@@ -17,6 +17,9 @@ Ideated, created repo, created backend/frontend boilerplate, setup GCP Cloud SQL
 Milestone 1:
 convert backend from node to flask, create all CRUD endpoints, seed database, integrate cloud sql and sql alchemy, create database schemas, convert ORM to SQL queries with sample output, create sql procedures, draw/generate ER Diagram, deploy to app engine 
 
+Milestone 2:
+Developed backend Youtube API integration, integrated production database seeding (with API), added Google OAuth 2.0 and login/logout, debugged frontend authentication, deployed backend app engine, deployed frontend heroku app, helped get people setup with database
+
 Name: Michael Qin - m6qin
 Milestone 0:
 Helped with brainstorming concept, created report and tested code.

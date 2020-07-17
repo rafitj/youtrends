@@ -64,6 +64,29 @@ def getVideosByViews():
     videos = models.Video.query.order_by(models.Video.views.desc()).all()
     return jsonify([video.serialize() for video in videos])
 
+@app.route("/videosByLikes", methods=['GET'])
+def getVideosByLikes():
+    videos = models.Video.query.order_by(models.Video.likes.desc()).all()
+    return jsonify([video.serialize() for video in videos])
+
+# @app.route("/videosByLikesRatio", methods=['GET'])
+# def getVideosByLikeRatio():
+#     videos = models.Video.query.order_by(models.Video.likes.desc()).all()
+#     return jsonify([video.serialize() for video in videos])
+
+# Filter by country then views - filter by trending status if possible?
+@app.route("/videosTrendingByCountry", methods=['GET'])
+def getVideosByCountry():
+    country = request.args.get('country')
+    videos = models.Video.query.filter(models.Video.trending_country == country).order_by(models.Video.likes.desc()).all()
+    return jsonify([video.serialize() for video in videos])
+
+#TODO: Parse date? Verify date format from frontend
+@app.route("/videosOnDate", methods=['GET'])
+def getVideosOnDate():
+    date = request.args.get('date')
+    videos = models.Video.query.filter(models.Video.publish_time == date).order_by(models.Video.likes.desc()).all()
+    return jsonify([video.serialize() for video in videos])
 
 @app.route("/playlists", methods=['GET'])
 @decorators.auth_required

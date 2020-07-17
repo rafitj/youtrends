@@ -67,6 +67,7 @@ def getVideosByViews():
     videos = models.Video.query.order_by(models.Video.views.desc()).all()
     return jsonify([video.serialize() for video in videos])
 
+
 @app.route("/videosByLikes", methods=['GET'])
 def getVideosByLikes():
     videos = models.Video.query.order_by(models.Video.likes.desc()).all()
@@ -78,20 +79,27 @@ def getVideosByLikes():
 #     return jsonify([video.serialize() for video in videos])
 
 # Filter by country then views - filter by trending status if possible?
+
+
 @app.route("/videosTrendingByCountry", methods=['GET'])
 def getVideosByCountry():
     country = request.args.get('country')
-    videos = models.Video.query.filter(models.Video.trending_country == country).order_by(models.Video.likes.desc()).all()
+    videos = models.Video.query.filter(
+        models.Video.trending_country == country).order_by(models.Video.likes.desc()).all()
     return jsonify([video.serialize() for video in videos])
 
-#TODO: Parse date? Verify date format from frontend
+# TODO: Parse date? Verify date format from frontend
+
+
 @app.route("/videosOnDate", methods=['GET'])
 def getVideosOnDate():
     date = request.args.get('date')
     fmt = '%a, %d %b %Y %H:%M:%S'
     print("the date provided is ", datetime.strptime(date[:-4], fmt))
-    videos = models.Video.query.filter(models.Video.publish_time == datetime.strptime(date[:-4], fmt)).order_by(models.Video.likes.desc()).all()
+    videos = models.Video.query.filter(models.Video.publish_time == datetime.strptime(
+        date[:-4], fmt)).order_by(models.Video.likes.desc()).all()
     return jsonify([video.serialize() for video in videos])
+
 
 @app.route("/playlists", methods=['GET'])
 def getUserPlaylists():
@@ -106,11 +114,10 @@ def getPlaylistVideos():
     playlist_id = request.args.get('id')
     videos = models.Video.query.join(models.PlaylistVideo, models.Video.id ==
                                      models.PlaylistVideo.video_id).add_column(models.PlaylistVideo.id).filter(models.PlaylistVideo.playlist_id == playlist_id).all()
-
     seralized_videos = [video[0].serialize() for video in videos]
 
-    for vid in videos:
-        seralized_videos[0].update({"playlist_video_id": vid[1]})
+    for i, vid in enumerate(videos):
+        seralized_videos[i].update({"playlist_video_id": vid[1]})
 
     return jsonify(seralized_videos)
 

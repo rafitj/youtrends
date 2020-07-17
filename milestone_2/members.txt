@@ -22,6 +22,9 @@ Helped with brainstorming concept, created report and tested code.
 Milestone 1 :
 Added endpoints to backend API, edited report
 
+Milestone 2 :
+Added more endpoints, suggested adding indexes to country and date, helped with report
+
 Name: Jin Huang
 Milestone 0:
 fixed install script

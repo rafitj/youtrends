@@ -28,8 +28,8 @@ def getVideos():
                          channel_id=v['snippet']['channelId'], publish_time=(
                              v['snippet']['publishedAt']).split('T')[0],
                          views=v['statistics']['viewCount'], likes=v['statistics']['likeCount'] if 'likeCount' in v['statistics'] else 0,
-                         dislikes=v['statistics']['dislikeCount'] if 'dislikeCount' in v['statistics'] else 0) for v in response['items'] if nonDuplicateVid(v['id'],
-                         trending_country=random.choice(countries))
+                         trending_country=random.choice(countries),
+                         dislikes=v['statistics']['dislikeCount'] if 'dislikeCount' in v['statistics'] else 0) for v in response['items'] if nonDuplicateVid(v['id'])
         ]
         resultsLeft -= resultsPerPage
         if (resultsLeft > resultsPerPage):

@@ -1,5 +1,6 @@
 import logging
 import uuid
+from datetime import datetime
 
 from flask import abort, jsonify, request, redirect, url_for, session, make_response
 
@@ -87,7 +88,9 @@ def getVideosByCountry():
 @app.route("/videosOnDate", methods=['GET'])
 def getVideosOnDate():
     date = request.args.get('date')
-    videos = models.Video.query.filter(models.Video.publish_time == date).order_by(models.Video.likes.desc()).all()
+    fmt = '%a, %d %b %Y %H:%M:%S'
+    print("the date provided is ", datetime.strptime(date[:-4], fmt))
+    videos = models.Video.query.filter(models.Video.publish_time == datetime.strptime(date[:-4], fmt)).order_by(models.Video.likes.desc()).all()
     return jsonify([video.serialize() for video in videos])
 
 @app.route("/playlists", methods=['GET'])

@@ -20,6 +20,7 @@ function removeVideoFromPlaylist(playlistVideoID) {
 
 function PlaylistVideo(thumbnail, title, views, date, ID, playlistVideoID) {
     var url = "https://youtube.com/watch?v=" + ID
+    console.log("playlist video id is " + playlistVideoID)
     return (
         <Grid container xs={3} spacing={2} className="video" justify="center" style={{padding: "8px", margin: "20px" }}>
             <Grid item>

@@ -1,6 +1,9 @@
 -- We used Flask SQLAlchemy as our application ORM 
 -- We have translated our code into raw SQL syntax
 
+-- The code that performs these queries can be found in `code/youtube-trends-backend/app/routes.py`, we recommend viewing this file
+-- as some queries utilize external variables such as from user input, which cannot be modeled precisely here. 
+
 -- DESCRIPTION: get top 10 videos 
 -- SQL ALCHEMY: videos = models.Video.query.all()
 SELECT * FROM video LIMIT 10;

@@ -80,3 +80,11 @@ WHERE video.id=playlist_video.video_id;
 | BrawlStarsAnimationPipersSugarSpice | 0cOsLTM5l9c |          20 | UCooVYzDxdwTtGYAkcPmOgOw | 2020-07-10 00:00:00 | NULL | 24697998 | 854809 |    13393 | NULL             | https://i.ytimg.com/vi/0cOsLTM5l9c/hqdefault.jpg |
 +-------------------------------------+-------------+-------------+--------------------------+---------------------+------+----------+--------+----------+------------------+--------------------------------------------------+
 1 row in set (0.05 sec)
+
+CREATE INDEX country_index ON video (trending_country);
+Query OK, 0 rows affected (0.06 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+CREATE INDEX publish_time_index ON video (publish_time);
+Query OK, 0 rows affected (0.06 sec)
+Records: 0  Duplicates: 0  Warnings: 0

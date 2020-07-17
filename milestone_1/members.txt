@@ -33,3 +33,6 @@ Helped with brainstorming, helped with report.
 Milestone 1:
 Created report, discussed new potential features to be added.
 
+Milestone 2:
+test-production.sql and test-production.out, helped with report
+

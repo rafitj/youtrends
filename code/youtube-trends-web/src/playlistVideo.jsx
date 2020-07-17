@@ -18,7 +18,7 @@ function removeVideoFromPlaylist(playlistVideoID) {
         .catch(err => console.error(err))
 }
 
-function PlaylistVideo(thumbnail, title, views, date, ID, playlistVideoID) {
+function PlaylistVideo(thumbnail, title, views, date, ID, playlistVideoID, likes) {
     var url = "https://youtube.com/watch?v=" + ID
     console.log("playlist video id is " + playlistVideoID)
     return (
@@ -42,7 +42,10 @@ function PlaylistVideo(thumbnail, title, views, date, ID, playlistVideoID) {
                             {"Views: " + views.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
                         </Typography>
                         <Typography variant="body1" gutterBottom>
-                            {"Published: " + date}
+                            {"Published: " + date.substring(0, date.indexOf("00:00") - 1)}
+                        </Typography>
+                        <Typography variant="body1" gutterBottom>
+                            {"Likes " + likes.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
                         </Typography>
                         <Button variant="dark" className="videoButton" onClick={() => removeVideoFromPlaylist(playlistVideoID)}>Remove</Button>
                     </Grid>

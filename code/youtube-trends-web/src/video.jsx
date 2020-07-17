@@ -25,7 +25,7 @@ function addVideoToPlaylist(videoID) {
         .catch(err => console.error(err))
 }
 
-function Video(thumbnail, title, views, date, ID) {
+function Video(thumbnail, title, views, date, ID, likes) {
     var url = "https://youtube.com/watch?v=" + ID
     return (
         <Grid container xs={3} spacing={2} className="video" justify="center" style={{padding: "8px", margin: "20px" }}>
@@ -48,7 +48,10 @@ function Video(thumbnail, title, views, date, ID) {
                             {"Views: " + views.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
                         </Typography>
                         <Typography variant="body1" gutterBottom>
-                            {"Published: " + date}
+                            {"Published: " + date.substring(0, date.indexOf("00:00") - 1)}
+                        </Typography>
+                        <Typography variant="body1" gutterBottom>
+                            {"Likes " + likes.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
                         </Typography>
                         <Button variant="dark" className="videoButton" onClick={() => addVideoToPlaylist(ID)}>Add to Playlist</Button>
                     </Grid>

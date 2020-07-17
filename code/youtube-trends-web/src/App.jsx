@@ -30,7 +30,7 @@ function displayVideos(videos) {
     }
 
     return videos.map((video) => (
-        Video(video.thumbnail.includes(".jpg") ? video.thumbnail : defaultThumbnail, video.title, video.views, video.publish_time, video.id)
+        Video(video.thumbnail.includes(".jpg") ? video.thumbnail : defaultThumbnail, video.title, video.views, video.publish_time, video.id, video.likes)
     )).slice(0,50);
 }
 
@@ -40,7 +40,7 @@ function displayPlaylistVideos(videos) {
     }
 
     return videos.map((video) => (
-        PlaylistVideo(video.thumbnail.includes(".jpg") ? video.thumbnail : defaultThumbnail, video.title, video.views, video.publish_time, video.id, video.playlistvideo_id)
+        PlaylistVideo(video.thumbnail.includes(".jpg") ? video.thumbnail : defaultThumbnail, video.title, video.views, video.publish_time, video.id, video.playlistvideo_id, video.likes)
     ));
 }
 

@@ -6,23 +6,29 @@ import Typography from '@material-ui/core/Typography';
 import ButtonBase from '@material-ui/core/ButtonBase';
 import Button from "react-bootstrap/Button";
 import axios from 'axios'
+import Cookies from "universal-cookie";
 
 const url = "http://127.0.0.1:5000"
+const cookies = new Cookies()
 
-function addVideoToPlaylist(videoID, playlistID) {
+function addVideoToPlaylist(videoID) {
+    if (!cookies.get('playlist_ID')) {
+        return
+    }
+
     axios.post(url + "/playlist-video",
         {
-            playlist_id: playlistID,
+            playlist_id: cookies.get('playlist_ID'),
             video_id: videoID
         })
         .then(response => console.log(response))
         .catch(err => console.error(err))
 }
 
-function Video(thumbnail, title, views, date, ID, playlistID) {
+function Video(thumbnail, title, views, date, ID) {
     var url = "https://youtube.com/watch?v=" + ID
     return (
-        <Grid container xs={3} spacing={2} className="video" style={{ padding: "8px", margin: "20px" }}>
+        <Grid container xs={3} spacing={2} className="video" justify="center" style={{padding: "8px", margin: "20px" }}>
             <Grid item>
                 <a href={url}>
                     <ButtonBase>
@@ -32,19 +38,19 @@ function Video(thumbnail, title, views, date, ID, playlistID) {
                     </ButtonBase>
                 </a>
             </Grid>
-            <Grid item container>
-                <Grid item xs container direction="column" spacing={2}>
+            <Grid item>
+                <Grid direction="column" spacing={2}>
                     <Grid item xs>
                         <Typography gutterBottom variant="h5">
-                            {title}
+                            {title.substring(0,20)}
                         </Typography>
                         <Typography variant="body1" gutterBottom>
-                            {"Views: " + views}
+                            {"Views: " + views.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
                         </Typography>
                         <Typography variant="body1" gutterBottom>
                             {"Published: " + date}
                         </Typography>
-                        <Button variant="dark" className="videoButton" onClick={() => addVideoToPlaylist(ID, playlistID)}>Add to Playlist</Button>
+                        <Button variant="dark" className="videoButton" onClick={() => addVideoToPlaylist(ID)}>Add to Playlist</Button>
                     </Grid>
                 </Grid>
             </Grid>

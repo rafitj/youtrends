@@ -1,7 +1,7 @@
 import logging
 import uuid
 
-from flask import abort, jsonify, request, redirect, url_for, session
+from flask import abort, jsonify, request, redirect, url_for, session, make_response
 
 from app import app, models, db, oauth, youtube_api, decorators
 
@@ -37,7 +37,9 @@ def authorize():
         id=profile['id'], first_name=profile['given_name'], last_name=profile['family_name'])
     db.session.merge(user)
     db.session.commit()
-    return profile
+    redirecturl = f'http://localhost:3000/authorize?id=' + \
+        profile["id"] + '&name=' + profile["name"]
+    return redirect(redirecturl)
 
 
 @app.route('/logout')
@@ -89,17 +91,14 @@ def getVideosOnDate():
     return jsonify([video.serialize() for video in videos])
 
 @app.route("/playlists", methods=['GET'])
-@decorators.auth_required
 def getUserPlaylists():
-    session_dict = dict(session)
-    user_id = session_dict['profile']['id']
+    user_id = request.args.get('user_id')
     playlists = models.Playlist.query.filter(
         models.Playlist.user_id == user_id)
     return jsonify([playlist.serialize() for playlist in playlists])
 
 
 @app.route("/playlist-videos", methods=['GET'])
-@decorators.auth_required
 def getPlaylistVideos():
     playlist_id = request.args.get('id')
     videos = models.Video.query.join(models.PlaylistVideo, models.Video.id ==
@@ -114,20 +113,18 @@ def getPlaylistVideos():
 
 
 @app.route("/playlist", methods=['POST'])
-@decorators.auth_required
 def createPlaylist():
-    title = request.form.get('title')
     # TODO: Use Youtube API to create playlists (with API generated ids)
+    title = request.get_json().get('title')
     id = uuid.uuid1()
-    user_id = request.form.get('user_id')
+    user_id = request.get_json().get('user_id')
     playlist = models.Playlist(id=id, title=title, user_id=user_id)
     db.session.add(playlist)
     db.session.commit()
-    return "Successfully created new playlist"
+    return jsonify(playlist_id=id)
 
 
 @app.route("/playlist", methods=['DELETE'])
-@decorators.auth_required
 def deletePlaylist():
     # TODO: Make sure user can only delete their own playlist
     id = request.args.get('id')
@@ -137,11 +134,10 @@ def deletePlaylist():
 
 
 @app.route("/playlist-video", methods=['POST'])
-@decorators.auth_required
 def addPlaylistVideo():
     # TODO: Make sure user can only add to their own playlist
-    playlist_id = request.form.get('playlist_id')
-    video_id = request.form.get('video_id')
+    playlist_id = request.get_json().get('playlist_id')
+    video_id = request.get_json().get('video_id')
     id = uuid.uuid1()
     playlistVideo = models.PlaylistVideo(id=id,
                                          video_id=video_id, playlist_id=playlist_id)
@@ -151,7 +147,6 @@ def addPlaylistVideo():
 
 
 @app.route("/playlist-video", methods=['DELETE'])
-@decorators.auth_required
 def removePlaylistVideo():
     # TODO: Make sure user can only remove from their own playlist
     id = request.args.get('id')

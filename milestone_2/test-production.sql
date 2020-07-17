@@ -3,15 +3,15 @@
 
 -- DESCRIPTION: get all videos
 -- SQL ALCHEMY: videos = models.Video.query.all()
-SELECT * FROM video LIMIT 15;
+SELECT * FROM video LIMIT 10;
 
 -- DESCRIPTION: get all videos ordered by views in descending order
 -- SQL ALCHEMY: videos = models.Video.query.order_by(models.Video.views.desc()).all()
-SELECT * FROM video ORDER BY video.views DESC LIMIT 15;
+SELECT * FROM video ORDER BY video.views DESC LIMIT 10;
 
 -- DESCRIPTION: get all playlists 
 -- SQL ALCHEMY: playlists = models.Playlist.query.all()
-SELECT * FROM playlist LIMIT 15;
+SELECT * FROM playlist LIMIT 10;
 
 SELECT * FROM playlist_video;
 -- No need to limit since there is only 1 tuple

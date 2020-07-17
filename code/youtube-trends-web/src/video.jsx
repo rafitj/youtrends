@@ -7,8 +7,8 @@ import ButtonBase from '@material-ui/core/ButtonBase';
 import Button from "react-bootstrap/Button";
 import axios from 'axios'
 import Cookies from "universal-cookie";
+import { url } from "./App.jsx"
 
-const url = "http://127.0.0.1:5000"
 const cookies = new Cookies()
 
 function addVideoToPlaylist(videoID) {

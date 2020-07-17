@@ -22,7 +22,8 @@ import { parse } from "query-string";
 import Cookies from 'universal-cookie';
 
 const cookies = new Cookies()
-const url = "http://127.0.0.1:5000"
+
+export const url = "https://cs348-project-279101.uc.r.appspot.com/"
 
 function displayVideos(videos) {
     if (!Array.isArray(videos)) {

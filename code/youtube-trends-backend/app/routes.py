@@ -98,7 +98,7 @@ def createPlaylist():
     playlist = models.Playlist(id=id, title=title, user_id=user_id)
     db.session.add(playlist)
     db.session.commit()
-    return "Successfully created new playlist"
+    return jsonify(playlist_id=id)
 
 
 @app.route("/playlist", methods=['DELETE'])

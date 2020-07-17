@@ -101,7 +101,6 @@ function App() {
     function getPlaylistVideos() {
         //If playlist_ID is set, get the videos from it
         if (cookies.get('playlist_ID')) {
-            console.log("playlist id is " + playlists[0].id)
             axios.get(url + "/playlist-videos", {
                 params: {
                     id: cookies.get('playlist_ID')
@@ -138,15 +137,8 @@ function App() {
                     title: "Default Playlist Title, Milestone 2",
                     user_id: cookies.get('user_id')
                 })
-                .then(response => console.log(response))
+                .then(response => cookies.set('playlist_ID', response.data))
                 .catch(err => console.error(err))
-
-            axios.get(url + "/playlists")
-                .then(response => setPlaylists(response.data))
-                .catch(err => console.error(err))
-            if (Array.isArray(playlists) && playlists.length > 0) {
-                cookies.set('playlist_ID', playlists[0].id)
-            }
         }
     }
 

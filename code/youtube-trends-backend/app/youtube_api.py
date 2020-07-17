@@ -5,6 +5,7 @@ import os
 from flask import jsonify
 from app import models, db
 import re
+import random
 
 YOUTUBE_API_SERVICE_NAME = 'youtube'
 YOUTUBE_API_VERSION = 'v3'
@@ -12,6 +13,7 @@ DEVELOPER_KEY = os.getenv('API_DEVELOPER_KEY')
 youtube = build(YOUTUBE_API_SERVICE_NAME, YOUTUBE_API_VERSION,
                 developerKey=DEVELOPER_KEY)
 
+countries=['RU', 'CA', 'US', 'JP', 'MX', 'KR', 'IN']
 
 def getVideos():
     response = youtube.videos().list(part='snippet,id,statistics',
@@ -26,7 +28,8 @@ def getVideos():
                          channel_id=v['snippet']['channelId'], publish_time=(
                              v['snippet']['publishedAt']).split('T')[0],
                          views=v['statistics']['viewCount'], likes=v['statistics']['likeCount'] if 'likeCount' in v['statistics'] else 0,
-                         dislikes=v['statistics']['dislikeCount'] if 'dislikeCount' in v['statistics'] else 0) for v in response['items'] if nonDuplicateVid(v['id'])
+                         dislikes=v['statistics']['dislikeCount'] if 'dislikeCount' in v['statistics'] else 0) for v in response['items'] if nonDuplicateVid(v['id'],
+                         trending_country=random.choice(countries))
         ]
         resultsLeft -= resultsPerPage
         if (resultsLeft > resultsPerPage):

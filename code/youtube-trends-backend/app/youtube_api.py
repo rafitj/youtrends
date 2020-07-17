@@ -45,4 +45,4 @@ def nonDuplicateVid(id):
 
 
 def cleanTitle(title):
-    return re.sub('[^A-Za-z0-9]+', '', title)
+    return re.sub('[^A-Za-z0-9\s]+', '', title)

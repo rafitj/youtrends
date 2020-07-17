@@ -1,0 +1,90 @@
+SELECT * FROM video LIMIT 10;
+-------------------------------+
+| title                                                                             | id          | category_id | channel_id               | publish_time        | tags | views    | likes  | dislikes | trending_country | thumbnail                                        |
++-----------------------------------------------------------------------------------+-------------+-------------+--------------------------+---------------------+------+----------+--------+----------+------------------+--------------------------------------------------+
+| MiscellaneousMythsOrion                                                           | -azEeihKGHM |          27 | UCodbH5mUeF-m_BsNueRDjcw | 2020-07-10 00:00:00 | NULL |   430285 |  41110 |      216 | NULL             | https://i.ytimg.com/vi/-azEeihKGHM/hqdefault.jpg |
+| BoatBuildingFinishingtheTransomEP76                                               | -bClvnnOnnU |          22 | UCg-_lYeV8hBnDSay7nmphUA | 2020-07-11 00:00:00 | NULL |   270794 |  20886 |       77 | NULL             | https://i.ytimg.com/vi/-bClvnnOnnU/hqdefault.jpg |
+| NayaRiveras4YearOldSonInterviewedExtensivelyByPolice                              | -EPTR5HOeAw |          24 | UCiKGMZZmZXK-RpbKJGXgH3Q | 2020-07-11 00:00:00 | NULL |   524689 |   5609 |      237 | NULL             | https://i.ytimg.com/vi/-EPTR5HOeAw/hqdefault.jpg |
+| JABBAWOCKEEZBAREWITMEbyTeyanaTaylorDANCEVIDEO                                     | -GOGf-Gbin4 |          24 | UCbdkuPpLhaMO8-ASIULFFaA | 2020-07-10 00:00:00 | NULL |   340049 |  33650 |      269 | NULL             | https://i.ytimg.com/vi/-GOGf-Gbin4/hqdefault.jpg |
+| FarCry6OfficialRevealTrailerUbisoftForward                                        | -IJuKT1mHO8 |          20 | UCKy1dAqELo0zrOtPkf0eTMw | 2020-07-12 00:00:00 | NULL |  2846953 | 133727 |     2813 | NULL             | https://i.ytimg.com/vi/-IJuKT1mHO8/hqdefault.jpg |
+| FutureRidinStrikersOfficialMusicVideo                                             | -uVIcfpJDyc |          10 | UCFNosi99Sp0_eLilBiXmmXA | 2020-07-13 00:00:00 | NULL |   284119 |  31449 |      586 | NULL             | https://i.ytimg.com/vi/-uVIcfpJDyc/hqdefault.jpg |
+| 2021FordBroncoFamilyTheReturnFord                                                 | -v1urLWR5zg |           2 | UCKA96UxTdgFBwGZMGZ-135w | 2020-07-14 00:00:00 | NULL |   219583 |   4495 |      107 | NULL             | https://i.ytimg.com/vi/-v1urLWR5zg/hqdefault.jpg |
+| ActressNayaRiveraPresumedDrownedAfterSwimmingInLakePiruWith4YearOldSon            | 014Xotsgbcg |          25 | UCkH1uDkyuO9sVjSqdqBygOg | 2020-07-09 00:00:00 | NULL |   768020 |   6263 |     1726 | NULL             | https://i.ytimg.com/vi/014Xotsgbcg/hqdefault.jpg |
+| 2021FordBroncoFirstLook                                                           | 06oa3mncWgA |           2 | UCj9yUGuMVVdm2DqyvJPUeUQ | 2020-07-14 00:00:00 | NULL |   285647 |   5242 |      188 | NULL             | https://i.ytimg.com/vi/06oa3mncWgA/hqdefault.jpg |
+| InvestigatorsRelease911CallMadeAfterBoatersFoundGleeActressNayaRiverasSonOnBoatIn | 0AldgBQz0o4 |          25 | UCkH1uDkyuO9sVjSqdqBygOg | 2020-07-10 00:00:00 | NULL |   601873 |   6614 |      205 | NULL             | https://i.ytimg.com/vi/0AldgBQz0o4/hqdefault.jpg |
+| UFC251PostfightPressConference                                                    | 0bLfIIaa4bA |          17 | UCvgfXK4nTYKudb0rFR6noLA | 2020-07-12 00:00:00 | NULL |   821658 |   9648 |      859 | NULL             | https://i.ytimg.com/vi/0bLfIIaa4bA/hqdefault.jpg |
+| BrawlStarsAnimationPipersSugarSpice                                               | 0cOsLTM5l9c |          20 | UCooVYzDxdwTtGYAkcPmOgOw | 2020-07-10 00:00:00 | NULL | 24697998 | 854809 |    13393 | NULL             | https://i.ytimg.com/vi/0cOsLTM5l9c/hqdefault.jpg |
+| NayaRiveraDeadat33                                                                | 10upYA3mUdk |          24 | UCdtXPiqI2cLorKaPrfpKc4g | 2020-07-13 00:00:00 | NULL |   892386 |  18608 |      417 | NULL             | https://i.ytimg.com/vi/10upYA3mUdk/hqdefault.jpg |
+| TrevorDanielSelenaGomezPastLifeOfficialVideo                                      | 1AhOK4UwAMs |          10 | UCjK8ORC71kwyj1DWFwril_A | 2020-07-14 00:00:00 | NULL |   467029 | 202592 |     1657 | NULL             | https://i.ytimg.com/vi/1AhOK4UwAMs/hqdefault.jpg |
+| TakingaPregnancyTestagain                                                         | 1d1Z21JqsMo |          24 | UCrbSjN1_5U7hqFKRA0nvFXQ | 2020-07-07 00:00:00 | NULL |  1774903 |  71944 |     2944 | NULL             | https://i.ytimg.com/vi/1d1Z21JqsMo/hqdefault.jpg |
++-----------------------------------------------------------------------------------+-------------+-------------+--------------------------+---------------------+------+----------+--------+----------+------------------+--------------------------------------------------+
+15 rows in set (0.05 sec)
+
+SELECT * FROM video ORDER BY video.views DESC LIMIT 10;
++---------------------------------------------------------------------------+-------------+-------------+--------------------------+---------------------+------+----------+---------+----------+------------------+--------------------------------------------------+
+| title                                                                     | id          | category_id | channel_id               | publish_time        | tags | views    | likes   | dislikes | trending_country | thumbnail                                        |
++---------------------------------------------------------------------------+-------------+-------------+--------------------------+---------------------+------+----------+---------+----------+------------------+--------------------------------------------------+
+| DilBecharaTitleTrackSushantSinghRajputSanjanaSanghiARRahmanMukeshChhabra  | PMCu0JtizCk |          10 | UC56gTxNs4f9xZ7Pa2i5xNzg | 2020-07-10 00:00:00 | NULL | 42052756 | 4648267 |    45170 | NULL             | https://i.ytimg.com/vi/PMCu0JtizCk/hqdefault.jpg |
+| RedVelvetIRENESEULGIMonsterMV                                             | Ujb-gvqsoi0 |          10 | UCEf_Bc-KVd7onSeifS3py9g | 2020-07-07 00:00:00 | NULL | 25618015 | 2277357 |    46834 | NULL             | https://i.ytimg.com/vi/Ujb-gvqsoi0/hqdefault.jpg |
+| BrawlStarsAnimationPipersSugarSpice                                       | 0cOsLTM5l9c |          20 | UCooVYzDxdwTtGYAkcPmOgOw | 2020-07-10 00:00:00 | NULL | 24697998 |  854809 |    13393 | NULL             | https://i.ytimg.com/vi/0cOsLTM5l9c/hqdefault.jpg |
+| RauwAlejandroCamiloTattooRemixVideoOficial                                | wJT-YKmlWJc |          10 | UC_Av98lDjf5KvFib5elhpYg | 2020-07-09 00:00:00 | NULL | 19696143 | 1076061 |    23632 | NULL             | https://i.ytimg.com/vi/wJT-YKmlWJc/hqdefault.jpg |
+| Milan42JuventusRonaldoGoalNotEnoughasMilanStunSerieALeadersSerieATIM      | NZ2_mOTc4TM |          17 | UCBJeMCIeLQos7wacox4hmLQ | 2020-07-07 00:00:00 | NULL | 18067591 |  265661 |    11104 | NULL             | https://i.ytimg.com/vi/NZ2_mOTc4TM/hqdefault.jpg |
+| KimLoaizaMeperdisteVideoOficial                                           | CeZzoc-hs-g |          10 | UCgmUtgxaeaT6CSHc70AQMEg | 2020-07-10 00:00:00 | NULL | 14318201 | 1376858 |   102885 | NULL             | https://i.ytimg.com/vi/CeZzoc-hs-g/hqdefault.jpg |
+| DixieDAmelioBeHappyExclusiveBehindtheScenes                               | UF_rqPr4JiY |          22 | UCLOEGprmycLLbyzBj2jozLg | 2020-07-08 00:00:00 | NULL | 13527249 |  669031 |    17612 | NULL             | https://i.ytimg.com/vi/UF_rqPr4JiY/hqdefault.jpg |
+| FarthestThrowfromGiantTowerWins                                           | 5-3ouosW9IA |          17 | UCRijo3ddMTht_IHyNSNXpNQ | 2020-07-06 00:00:00 | NULL | 12074994 |  537775 |     9699 | NULL             | https://i.ytimg.com/vi/5-3ouosW9IA/hqdefault.jpg |
+| KAROLGAyDiOsMoOfficialVideo                                               | Ou2c2aj5Fcw |          10 | UCz9yS18zJGQObwUL_K-ICnw | 2020-07-10 00:00:00 | NULL | 10141282 |  321684 |    21095 | NULL             | https://i.ytimg.com/vi/Ou2c2aj5Fcw/hqdefault.jpg |
+| Whatdoes2020looklikeforyouBepartofLIFEINADAYonJuly25                      | Q4xuSCBQxRk |          24 | UCqVDpXKLmKeBU_yyt_QkItQ | 2020-07-10 00:00:00 | NULL |  9941210 |   60157 |    13433 | NULL             | https://i.ytimg.com/vi/Q4xuSCBQxRk/hqdefault.jpg |
+| LILIsFILM4LISADancePerformanceVideo                                       | 6U-4Y17xMRY |          24 | UC35HKvKYPkri4Grd5KXl3wQ | 2020-07-10 00:00:00 | NULL |  8890257 | 1351998 |    13751 | NULL             | https://i.ytimg.com/vi/6U-4Y17xMRY/hqdefault.jpg |
+| MyFriendsDrawMyMakeupLooks                                                | jIIp6vM5Og4 |          24 | UCucot-Zp428OwkyRm2I7v2Q | 2020-07-10 00:00:00 | NULL |  7227191 |  578126 |    11348 | NULL             | https://i.ytimg.com/vi/jIIp6vM5Og4/hqdefault.jpg |
+| Day2HighlightsStunningHolderTakesBestEver642EnglandvWestIndies1stTest2020 | sf6fUTjAWp0 |          17 | UCz1D0n02BR3t51KuBOPmfTQ | 2020-07-09 00:00:00 | NULL |  6775590 |  117641 |     4923 | NULL             | https://i.ytimg.com/vi/sf6fUTjAWp0/hqdefault.jpg |
+| KidCudiEminemTheAdventuresOfMoonManSlimShadyLyricVideo                    | s1-D8UOq7iA |          10 | UCsiY9eX1oL0a-_yWoYtkbQA | 2020-07-10 00:00:00 | NULL |  6673637 |  333116 |    11353 | NULL             | https://i.ytimg.com/vi/s1-D8UOq7iA/hqdefault.jpg |
+| BLACKPINKHowYouLikeThat20200711                                           | PlVozOLl21U |          10 | UCe52oeb7Xv_KaJsEzcKXJJg | 2020-07-11 00:00:00 | NULL |  6162500 |  471721 |    12142 | NULL             | https://i.ytimg.com/vi/PlVozOLl21U/hqdefault.jpg |
++---------------------------------------------------------------------------+-------------+-------------+--------------------------+---------------------+------+----------+---------+----------+------------------+--------------------------------------------------+
+15 rows in set (0.16 sec)
+
+SELECT * FROM playlist LIMIT 10;
++--------------------------------------+-------------------------------------+-----------------------+
+| id                                   | title                               | user_id               |
++--------------------------------------+-------------------------------------+-----------------------+
+| 22cd168c-c7a0-11ea-bc24-acde48001122 | Default Playlist Title, Milestone 2 | 102745531984641112856 |
+| 3955a0fa-c79f-11ea-a3ed-acde48001122 | Default Playlist Title, Milestone 2 | 102745531984641112856 |
+| 4220dd26-c79f-11ea-ae0e-acde48001122 | Default Playlist Title, Milestone 2 | 102745531984641112856 |
+| 54c0f8bc-c79f-11ea-a4b2-acde48001122 | Default Playlist Title, Milestone 2 | 102745531984641112856 |
+| 8a0e9670-c7cf-11ea-baa6-acde48001122 | Default Playlist Title, Milestone 2 | 113820789905356890154 |
+| 8a23a630-c79f-11ea-a4b2-acde48001122 | Default Playlist Title, Milestone 2 | 102745531984641112856 |
+| 94a8bffa-c79f-11ea-a973-acde48001122 | Default Playlist Title, Milestone 2 | 102745531984641112856 |
+| 9d4f0a54-c7a6-11ea-a7fa-acde48001122 | Default Playlist Title, Milestone 2 | 113820789905356890154 |
+| 9f7af5e0-c7a6-11ea-a7fa-acde48001122 | Default Playlist Title, Milestone 2 | 113820789905356890154 |
+| a07fdea6-c7a6-11ea-a7fa-acde48001122 | Default Playlist Title, Milestone 2 | 113820789905356890154 |
+| a2ac8d8c-c7a6-11ea-a7fa-acde48001122 | Default Playlist Title, Milestone 2 | 113820789905356890154 |
+| a3ac4ab0-c7a6-11ea-a7fa-acde48001122 | Default Playlist Title, Milestone 2 | 113820789905356890154 |
+| a478ac72-c7a6-11ea-a7fa-acde48001122 | Default Playlist Title, Milestone 2 | 113820789905356890154 |
+| a584b1ce-c7a6-11ea-a7fa-acde48001122 | Default Playlist Title, Milestone 2 | 113820789905356890154 |
+| a8ec27d8-c7cf-11ea-baa6-acde48001122 | Default Playlist Title, Milestone 2 | 113820789905356890154 |
++--------------------------------------+-------------------------------------+-----------------------+
+15 rows in set (0.05 sec)
+
+SELECT * FROM playlist_video;
++---------------+-------------+-------------+
+| id            | playlist_id | video_id    |
++---------------+-------------+-------------+
+| xjnelkeljknxu | as2j23njlue | 0cOsLTM5l9c |
++---------------+-------------+-------------+
+1 row in set (0.05 sec)
+
+SELECT * FROM video, playlist_video 
+WHERE video.id=playlist_video.video_id;
++-------------------------------------+-------------+-------------+--------------------------+---------------------+------+----------+--------+----------+------------------+--------------------------------------------------+
+| title                               | id          | category_id | channel_id               | publish_time        | tags | views    | likes  | dislikes | trending_country | thumbnail                                        |
++-------------------------------------+-------------+-------------+--------------------------+---------------------+------+----------+--------+----------+------------------+--------------------------------------------------+
+| BrawlStarsAnimationPipersSugarSpice | 0cOsLTM5l9c |          20 | UCooVYzDxdwTtGYAkcPmOgOw | 2020-07-10 00:00:00 | NULL | 24697998 | 854809 |    13393 | NULL             | https://i.ytimg.com/vi/0cOsLTM5l9c/hqdefault.jpg |
++-------------------------------------+-------------+-------------+--------------------------+---------------------+------+----------+--------+----------+------------------+--------------------------------------------------+
+1 row in set (0.05 sec)
+
+CREATE INDEX country_index ON video (trending_country);
+Query OK, 0 rows affected (0.06 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+CREATE INDEX publish_time_index ON video (publish_time);
+Query OK, 0 rows affected (0.06 sec)
+Records: 0  Duplicates: 0  Warnings: 0

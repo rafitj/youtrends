@@ -7,6 +7,8 @@ Created the milestone 1 frontend, displays videos and allows adding/removing vid
 
 Milestone 2:
 Updated frontend to support milestone 2 features such as thumbnails, more filters etc.
+Fixed bugs in backend API
+Updated the report and ReadMe
 
 Name: Rafit Jamil - rf2jamil 
 Milestone 0:
@@ -31,6 +33,10 @@ fixed install script
 
 Milestone 1:
 Created ER diagram of database
+
+Milestone 2:
+Worked on frontend, adding buttons for filtering and their API calls on click
+Worked on updating the report
 
 Name: Hussain Abdi - shrabdi
 Milestone 0:

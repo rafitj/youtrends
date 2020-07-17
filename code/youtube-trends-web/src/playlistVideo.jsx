@@ -10,17 +10,17 @@ import axios from 'axios'
 const url = "http://127.0.0.1:5000"
 
 function removeVideoFromPlaylist(playlistVideoID) {
-    axios.delete(url + "/playlist-video",
-        {
+    axios.delete(url + "/playlist-video",{
+        params: {
             id: playlistVideoID
-        })
+        }
+    })
         .then(response => console.log(response))
         .catch(err => console.error(err))
 }
 
 function PlaylistVideo(thumbnail, title, views, date, ID, playlistVideoID, likes) {
     var url = "https://youtube.com/watch?v=" + ID
-    console.log("playlist video id is " + playlistVideoID)
     return (
         <Grid container xs={3} spacing={2} className="video" justify="center" style={{padding: "8px", margin: "20px" }}>
             <Grid item>

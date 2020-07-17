@@ -72,7 +72,7 @@ SELECT * FROM playlist_video;
 +---------------+-------------+-------------+
 1 row in set (0.05 sec)
 
-SELECT video.* FROM video, playlist_video 
+SELECT * FROM video, playlist_video 
 WHERE video.id=playlist_video.video_id;
 +-------------------------------------+-------------+-------------+--------------------------+---------------------+------+----------+--------+----------+------------------+--------------------------------------------------+
 | title                               | id          | category_id | channel_id               | publish_time        | tags | views    | likes  | dislikes | trending_country | thumbnail                                        |

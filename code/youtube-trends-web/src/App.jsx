@@ -20,10 +20,14 @@ import 'react-day-picker/lib/style.css';
 import 'query-string'
 import { parse } from "query-string";
 import Cookies from 'universal-cookie';
+import { curveCatmullRom } from 'd3-shape';
+import '../node_modules/react-vis/dist/style.css';
+import { XYPlot, XAxis, YAxis, HorizontalGridLines, LineSeries, LineMarkSeries, ChartLabel, VerticalGridLines } from 'react-vis';
 
 const cookies = new Cookies()
 
-export const url = "https://cs348-project-279101.uc.r.appspot.com/"
+// export const url = "http://127.0.0.1:5000"
+export const url = "https://cs348-project-279101.uc.r.appspot.com"
 
 function displayVideos(videos) {
     if (!Array.isArray(videos)) {
@@ -32,7 +36,7 @@ function displayVideos(videos) {
 
     return videos.map((video) => (
         Video(video.thumbnail.includes(".jpg") ? video.thumbnail : defaultThumbnail, video.title, video.views, video.publish_time, video.id, video.likes)
-    )).slice(0,50);
+    )).slice(0, 50);
 }
 
 function displayPlaylistVideos(videos) {
@@ -45,11 +49,48 @@ function displayPlaylistVideos(videos) {
     ));
 }
 
+function createLineGraph(data, xLabel, yLabel) {
+    return <div style={{ marginLeft: 300, marginTop: 50, paddingBottom: 20 }}>
+        <XYPlot width={700} height={500} >
+            <HorizontalGridLines />
+            <VerticalGridLines />
+            <XAxis />
+            <YAxis />
+            <ChartLabel
+                text={xLabel}
+                className="alt-x-label"
+                xPercent={0.5}
+                yPercent={0.92}
+            />
+
+            <ChartLabel
+                text={yLabel}
+                className="alt-y-label"
+                xPercent={0.015}
+                yPercent={0.5}
+                style={{
+                    transform: 'rotate(-90)',
+                  }}
+            />
+            <LineMarkSeries
+                className="linemark-series-example"
+                style={{
+                    strokeWidth: '3px'
+                }}
+                lineStyle={{ stroke: 'red' }}
+                markStyle={{ stroke: 'blue' }}
+                data={data}
+            />
+        </XYPlot>
+    </div>
+}
+
 function App() {
     const [videos, setVideos] = useState([]);
     const [playlists, setPlaylists] = useState([]);
     const [playlistVideos, setPlaylistVideos] = useState([]);
     const [startDate, setDate] = useState(new Date());
+    const [query, setQuery] = useState("");
 
     function getVideos() {
         axios.get(url + "/videos")
@@ -99,6 +140,16 @@ function App() {
             .catch(err => console.error(err))
     }
 
+    function search() {
+        axios.get(url + "/search", {
+            params: {
+                query: query
+            }
+        })
+            .then(response => setVideos(response.data))
+            .catch(err => console.error(err))
+    }
+
     function getPlaylistVideos() {
         //If playlist_ID is set, get the videos from it
         if (cookies.get('playlist_ID')) {
@@ -107,8 +158,8 @@ function App() {
                     id: cookies.get('playlist_ID')
                 }
             })
-            .then(response => setPlaylistVideos(response.data))
-            .catch(err => console.error(err))
+                .then(response => setPlaylistVideos(response.data))
+                .catch(err => console.error(err))
             return
         }
 
@@ -129,8 +180,8 @@ function App() {
                     id: cookies.get('playlist_ID')
                 }
             })
-            .then(response => setPlaylistVideos(response.data))
-            .catch(err => console.error(err))
+                .then(response => setPlaylistVideos(response.data))
+                .catch(err => console.error(err))
         } else {
             axios.post(url + "/playlist",
                 {
@@ -150,6 +201,7 @@ function App() {
     useEffect(() => {
         getVideos();
         getPlaylistVideos();
+        //query for statistics
     }, []);
 
     function videosPage() {
@@ -193,12 +245,45 @@ function App() {
                         <Grid item>
                             <DayPickerInput placeholder={"Sort By Publish Date"} onDayChange={formattedVal => getVideosByDate(formattedVal)} />
                         </Grid>
+                        <Grid item>
+                            <input type="text" placeholder="Search" onChange={s => setQuery(s.target.value)} />
+                        </Grid>
+                        <Grid item>
+                            <Button variant="dark" className="filterButton" onClick={() => search()}>Search</Button>
+                        </Grid>
                     </Grid>
                 </div>
                 <div className="videosCollection">
                     <Grid container xs={3} sm spacing={2} style={{ padding: "8px", marginLeft: "16px" }}>
                         {displayVideos(videos)}
                     </Grid>
+                </div>
+            </div>
+        );
+    }
+
+    const data = new Array(20).fill(0).reduce((prev, curr) => [...prev, {
+        x: Math.random() * 20,
+        y: Math.random() * 20
+    }], []);
+
+    function statisticsPage() {
+        return (
+            <div>
+                <div className="playlist">
+                    <h2>Statistics</h2>
+                </div>
+                <div className="statsText">
+                    <h3>Subscribers vs Date</h3>
+                    {createLineGraph([{ x: 1, y: 10 }, { x: 2, y: 5 }, { x: 3, y: 15 }], "Date", "Subscribers")}
+                </div>
+                <div className="statsText">
+                    <h3>Viewers vs Date</h3>
+                    {createLineGraph([{ x: 1, y: 10 }, { x: 2, y: 5 }, { x: 3, y: 15 }], "Date", "Viewers")}
+                </div>
+                <div className="statsText">
+                    <h3>Likes vs Date</h3>
+                    {createLineGraph([{ x: 1, y: 10 }, { x: 2, y: 5 }, { x: 3, y: 15 }], "Date", "Likes")}
                 </div>
             </div>
         );
@@ -242,6 +327,9 @@ function App() {
                     </Route>
                     <Route exact path="/authorize">
                         {auth()}
+                    </Route>
+                    <Route path="/statistics">
+                        {statisticsPage()}
                     </Route>
                     <Route path="/">
                         {videosPage()}

@@ -22,7 +22,8 @@ import { parse } from "query-string";
 import Cookies from 'universal-cookie';
 
 const cookies = new Cookies()
-const url = "http://127.0.0.1:5000"
+
+export const url = "https://cs348-project-279101.uc.r.appspot.com/"
 
 function displayVideos(videos) {
     if (!Array.isArray(videos)) {
@@ -40,7 +41,7 @@ function displayPlaylistVideos(videos) {
     }
 
     return videos.map((video) => (
-        PlaylistVideo(video.thumbnail.includes(".jpg") ? video.thumbnail : defaultThumbnail, video.title, video.views, video.publish_time, video.id, video.playlistvideo_id, video.likes)
+        PlaylistVideo(video.thumbnail.includes(".jpg") ? video.thumbnail : defaultThumbnail, video.title, video.views, video.publish_time, video.id, video.playlist_video_id, video.likes)
     ));
 }
 
@@ -123,7 +124,6 @@ function App() {
         //If they have a playlist, get videos, otherwise make a playlist and set playlist_ID
         if (Array.isArray(playlists) && playlists.length > 0) {
             cookies.set('playlist_ID', playlists[0].id)
-            console.log("playlist id is " + playlists[0].id)
             axios.get(url + "/playlist-videos", {
                 params: {
                     id: cookies.get('playlist_ID')

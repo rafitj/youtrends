@@ -6,25 +6,24 @@ import Typography from '@material-ui/core/Typography';
 import ButtonBase from '@material-ui/core/ButtonBase';
 import Button from "react-bootstrap/Button";
 import axios from 'axios'
-
-const url = "http://127.0.0.1:5000"
+import { url } from "./App.jsx"
 
 function removeVideoFromPlaylist(playlistVideoID) {
-    axios.delete(url + "/playlist-video",
-        {
+    axios.delete(url + "/playlist-video",{
+        params: {
             id: playlistVideoID
-        })
+        }
+    })
         .then(response => console.log(response))
         .catch(err => console.error(err))
 }
 
 function PlaylistVideo(thumbnail, title, views, date, ID, playlistVideoID, likes) {
-    var url = "https://youtube.com/watch?v=" + ID
-    console.log("playlist video id is " + playlistVideoID)
+    var urlYT = "https://youtube.com/watch?v=" + ID
     return (
         <Grid container xs={3} spacing={2} className="video" justify="center" style={{padding: "8px", margin: "20px" }}>
             <Grid item>
-                <a href={url}>
+                <a href={urlYT}>
                     <ButtonBase>
                         <div className="imageBox">
                             <img alt="complex" src={thumbnail} className="videoImage" />

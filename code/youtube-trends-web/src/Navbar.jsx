@@ -2,8 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Navbar, Nav } from 'react-bootstrap';
 import "./CSS/bootstrap.css";
 import Cookies from "universal-cookie";
-
-const url = "http://127.0.0.1:5000"
+import { url } from "./App.jsx"
 
 function NavBar() {
     const [isAuthenticated, setIsAuthenticated] = useState(false);

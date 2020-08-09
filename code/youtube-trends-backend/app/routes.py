@@ -16,6 +16,15 @@ def home():
     return 'Hi! Please login.'
 
 
+@app.route('/search')
+def search():
+    query = "%" + request.args.get('query') + "%"
+    videos = models.Video.query.filter(
+        (models.Video.title.like(query)) | (models.Video.id == query)).all()
+    print(videos)
+    return jsonify([video.serialize() for video in videos])
+
+
 @app.route('/login')
 def login():
     google = oauth.create_client('google')  # create the google oauth client

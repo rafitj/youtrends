@@ -28,7 +28,7 @@ function addVideoToPlaylist(videoID) {
 function Video(thumbnail, title, views, date, ID, likes) {
     var url = "https://youtube.com/watch?v=" + ID
     return (
-        <Grid container xs={3} spacing={2} className="video" justify="center" style={{padding: "8px", margin: "20px" }}>
+        <Grid container xs={3} spacing={2} className="video" justify="center" style={{padding: "8px", margin: "40px" }}>
             <Grid item>
                 <a href={url}>
                     <ButtonBase>

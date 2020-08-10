@@ -10,6 +10,10 @@ Updated frontend to support milestone 2 features such as thumbnails, more filter
 Fixed bugs in backend API
 Updated the report and ReadMe
 
+Milestone 3:
+Added search to the frontend
+Created Analytics Visualizer page
+
 Name: Rafit Jamil - rf2jamil 
 Milestone 0:
 Ideated, created repo, created backend/frontend boilerplate, setup GCP Cloud SQL database/schema and pushed data.

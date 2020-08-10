@@ -21,7 +21,7 @@ function NavBar() {
             <Nav className="ml-auto">
                 <Nav.Link href="/videos">Videos</Nav.Link>
                 <Nav.Link href="/playlist">Playlist</Nav.Link>
-                <Nav.Link href="/statistics">Statistics</Nav.Link>
+                <Nav.Link href="/analytics">Analytics</Nav.Link>
                 {!isAuthenticated && <Nav.Link href={url + "/login"}>Login</Nav.Link>}
             </Nav>
         </Navbar>

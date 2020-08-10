@@ -20,9 +20,8 @@ import 'react-day-picker/lib/style.css';
 import 'query-string'
 import { parse } from "query-string";
 import Cookies from 'universal-cookie';
-import { curveCatmullRom } from 'd3-shape';
 import '../node_modules/react-vis/dist/style.css';
-import { XYPlot, XAxis, YAxis, HorizontalGridLines, LineSeries, LineMarkSeries, ChartLabel, VerticalGridLines } from 'react-vis';
+import { XYPlot, XAxis, YAxis, HorizontalGridLines, LineMarkSeries, ChartLabel, VerticalGridLines } from 'react-vis';
 
 const cookies = new Cookies()
 
@@ -201,7 +200,7 @@ function App() {
     useEffect(() => {
         getVideos();
         getPlaylistVideos();
-        //query for statistics
+        //query for analytics
     }, []);
 
     function videosPage() {
@@ -267,11 +266,11 @@ function App() {
         y: Math.random() * 20
     }], []);
 
-    function statisticsPage() {
+    function analyticsPage() {
         return (
             <div>
                 <div className="playlist">
-                    <h2>Statistics</h2>
+                    <h2>analytics</h2>
                 </div>
                 <div className="statsText">
                     <h3>Subscribers vs Date</h3>
@@ -328,8 +327,8 @@ function App() {
                     <Route exact path="/authorize">
                         {auth()}
                     </Route>
-                    <Route path="/statistics">
-                        {statisticsPage()}
+                    <Route path="/analytics">
+                        {analyticsPage()}
                     </Route>
                     <Route path="/">
                         {videosPage()}

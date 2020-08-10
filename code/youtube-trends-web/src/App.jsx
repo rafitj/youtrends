@@ -270,7 +270,7 @@ function App() {
         return (
             <div>
                 <div className="playlist">
-                    <h2>analytics</h2>
+                    <h2>Analytics</h2>
                 </div>
                 <div className="statsText">
                     <h3>Subscribers vs Date</h3>

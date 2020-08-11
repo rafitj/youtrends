@@ -1,8 +1,8 @@
 import json
 
 from app import db, utils
-from sqlalchemy import String, Column, Integer, ForeignKey, Date
-from sqlalchemy.orm import relationship
+from sqlalchemy import String, Column, Integer, ForeignKey, Date, func
+from sqlalchemy.orm import Session, relationship
 
 
 class Video(db.Model):

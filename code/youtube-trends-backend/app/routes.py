@@ -109,6 +109,35 @@ def getVideosOnDate():
         date[:-4], fmt)).order_by(models.Video.likes.desc()).all()
     return jsonify([video.serialize() for video in videos])
 
+# Data visualization routes
+
+
+@app.route("/playlistvids-vs-views", methods=['GET'])
+def commonPlaylistVids():
+    result = db.session.query(db.func.count(models.PlaylistVideo.video_id), models.PlaylistVideo.video_id, models.Video.title).join(
+        models.Video).group_by(models.PlaylistVideo.video_id).order_by(db.func.count(models.PlaylistVideo.video_id).desc()).limit(10).all()
+    data = [{'y': num, 'x': vidTitle} for (num, vidID, vidTitle) in result]
+    return jsonify(data)
+
+
+@app.route("/countries-vs-views", methods=['GET'])
+def countriesVsViews():
+    result = db.session.query(models.Video.trending_country.label('countryX'), db.func.sum(
+        models.Video.views).label('total views')).group_by(models.Video.trending_country).all()
+    data = [{'x': country, 'y': int(views)} for (country, views) in result]
+    return jsonify(data)
+
+
+@app.route("/channel-vs-views", methods=['GET'])
+def channelVsViews():
+    result = db.session.query(models.Video.channel_id.label('channelX'), db.func.sum(
+        models.Video.views).label('total views')).group_by(models.Video.channel_id).limit(10).all()
+    data = [{'x': youtube_api.getChannelTitleById(channel),
+             'y': int(views)} for (channel, views) in result]
+    return jsonify(data)
+
+# playlist routes
+
 
 @app.route("/playlists", methods=['GET'])
 def getUserPlaylists():

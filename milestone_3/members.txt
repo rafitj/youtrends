@@ -1,0 +1,59 @@
+Name: Hiro Ayettey - ehayette
+Milestone 0:
+Made the milestone 0 frontend, created the milestone 0 backend and deployed it to Google Cloud.
+
+Milestone 1:
+Created the milestone 1 frontend, displays videos and allows adding/removing videos from playlists.
+
+Milestone 2:
+Updated frontend to support milestone 2 features such as thumbnails, more filters etc.
+Fixed bugs in backend API
+Updated the report and ReadMe
+
+Milestone 3:
+Added search to the frontend
+Created Analytics Visualizer page
+
+Name: Rafit Jamil - rf2jamil 
+Milestone 0:
+Ideated, created repo, created backend/frontend boilerplate, setup GCP Cloud SQL database/schema and pushed data.
+
+Milestone 1:
+convert backend from node to flask, create all CRUD endpoints, seed database, integrate cloud sql and sql alchemy, create database schemas, convert ORM to SQL queries with sample output, create sql procedures, draw/generate ER Diagram, deploy to app engine 
+
+Milestone 2:
+Developed backend Youtube API integration, integrated production database seeding (with API), added Google OAuth 2.0 and login/logout, debugged frontend authentication, deployed backend app engine, deployed frontend heroku app, helped get people setup with database
+
+Milestone 3:
+Added search by title and id endpoint, added database optimizations with indexes, added trigger, worked on backend features presentation
+
+Name: Michael Qin - m6qin
+Milestone 0:
+Helped with brainstorming concept, created report and tested code.
+
+Milestone 1 :
+Added endpoints to backend API, edited report
+
+Milestone 2 :
+Added more endpoints, suggested adding indexes to country and date, helped with report
+
+Name: Jin Huang
+Milestone 0:
+fixed install script
+
+Milestone 1:
+Created ER diagram of database
+
+Milestone 2:
+Worked on frontend, adding buttons for filtering and their API calls on click
+Worked on updating the report
+
+Name: Hussain Abdi - shrabdi
+Milestone 0:
+Helped with brainstorming, helped with report.
+
+Milestone 1:
+Created report, discussed new potential features to be added.
+
+Milestone 2:
+test-production.sql and test-production.out, helped with report

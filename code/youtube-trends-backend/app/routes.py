@@ -112,26 +112,31 @@ def getVideosOnDate():
 # Data visualization routes
 
 
-@app.route("/commonPlaylistVids", methods=['GET'])
+@app.route("/playlistvids-vs-views", methods=['GET'])
 def commonPlaylistVids():
-    videos = db.session.query(db.func.count(models.PlaylistVideo.video_id).label('vidCount'), models.PlaylistVideo.video_id.label('vidID')).group_by(models.PlaylistVideo.video_id).order_by(db.func.count(models.PlaylistVideo.video_id).desc()).limit(10)
-    return jsonify([video.serialize() for video in videos])
+    result = db.session.query(db.func.count(models.PlaylistVideo.video_id).label('vidCount'), models.PlaylistVideo.video_id.label(
+        'vidID')).group_by(models.PlaylistVideo.video_id).order_by(db.func.count(models.PlaylistVideo.video_id).desc()).limit(20).all()
+    data = [{'x': vid, 'y': views} for (vid, views) in result]
+    return jsonify(data)
 
-@app.route("/countriesVsViews", methods=['GET'])
+
+@app.route("/countries-vs-views", methods=['GET'])
 def countriesVsViews():
-
-    videos = db.session.query(models.Video.trending_country.label('countryX'), db.func.sum(
+    result = db.session.query(models.Video.trending_country.label('countryX'), db.func.sum(
         models.Video.views).label('total views')).group_by(models.Video.trending_country).all()
-    return jsonify([video.serialize() for video in videos])
+    data = [{'x': country, 'y': int(views)} for (country, views) in result]
+    return jsonify(data)
 
-@app.route("/channelVsViews", methods=['GET'])
+
+@app.route("/channel-vs-views", methods=['GET'])
 def channelVsViews():
+    result = db.session.query(models.Video.channel_id.label('channelX'), db.func.sum(
+        models.Video.views).label('total views')).group_by(models.Video.channel_id).limit(20).all()
+    data = [{'x': channel, 'y': int(views)} for (channel, views) in result]
+    return jsonify(data)
 
-    videos = db.session.query(models.Video.channel_id.label('channelX'), db.func.sum(
-        models.Video.views).label('total views')).group_by(models.Video.channel_id).all()
-    return jsonify([video.serialize() for video in videos])
+# playlist routes
 
-#playlist routes
 
 @app.route("/playlists", methods=['GET'])
 def getUserPlaylists():

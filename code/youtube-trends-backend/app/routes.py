@@ -109,6 +109,29 @@ def getVideosOnDate():
         date[:-4], fmt)).order_by(models.Video.likes.desc()).all()
     return jsonify([video.serialize() for video in videos])
 
+# Data visualization routes
+
+
+@app.route("/commonPlaylistVids", methods=['GET'])
+def commonPlaylistVids():
+    videos = db.session.query(db.func.count(models.PlaylistVideo.video_id).label('vidCount'), models.PlaylistVideo.video_id.label('vidID')).group_by(models.PlaylistVideo.video_id).order_by(db.func.count(models.PlaylistVideo.video_id).desc()).limit(10)
+    return jsonify([video.serialize() for video in videos])
+
+@app.route("/countriesVsViews", methods=['GET'])
+def countriesVsViews():
+
+    videos = db.session.query(models.Video.trending_country.label('countryX'), db.func.sum(
+        models.Video.views).label('total views')).group_by(models.Video.trending_country).all()
+    return jsonify([video.serialize() for video in videos])
+
+@app.route("/channelVsViews", methods=['GET'])
+def channelVsViews():
+
+    videos = db.session.query(models.Video.channel_id.label('channelX'), db.func.sum(
+        models.Video.views).label('total views')).group_by(models.Video.channel_id).all()
+    return jsonify([video.serialize() for video in videos])
+
+#playlist routes
 
 @app.route("/playlists", methods=['GET'])
 def getUserPlaylists():

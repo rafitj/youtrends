@@ -25,7 +25,7 @@ Milestone 2:
 Developed backend Youtube API integration, integrated production database seeding (with API), added Google OAuth 2.0 and login/logout, debugged frontend authentication, deployed backend app engine, deployed frontend heroku app, helped get people setup with database
 
 Milestone 3:
-Added search by title and id endpoint, added database optimizations with indexes, added trigger, worked on backend features presentation
+Added search by title and id endpoint, added database optimizations with indexes, added trigger, worked on data visualization endpoints, worked on backend features presentation
 
 Name: Michael Qin - m6qin
 Milestone 0:

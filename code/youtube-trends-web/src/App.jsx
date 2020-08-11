@@ -320,11 +320,6 @@ function App() {
         );
     }
 
-    const data = new Array(20).fill(0).reduce((prev, curr) => [...prev, {
-        x: Math.random() * 20,
-        y: Math.random() * 20
-    }], []);
-
     function analyticsPage() {
         return (
             <div>

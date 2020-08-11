@@ -112,7 +112,7 @@ def getVideosOnDate():
 # Data visualization routes
 
 
-@app.route("/playlistvids-vs-views", methods=['GET'])
+@app.route("/playlistvids-vs-vid-occurrences", methods=['GET'])
 def commonPlaylistVids():
     result = db.session.query(db.func.count(models.PlaylistVideo.video_id), models.PlaylistVideo.video_id, models.Video.title).join(
         models.Video).group_by(models.PlaylistVideo.video_id).order_by(db.func.count(models.PlaylistVideo.video_id).desc()).limit(10).all()

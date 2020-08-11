@@ -13,7 +13,13 @@ DEVELOPER_KEY = os.getenv('API_DEVELOPER_KEY')
 youtube = build(YOUTUBE_API_SERVICE_NAME, YOUTUBE_API_VERSION,
                 developerKey=DEVELOPER_KEY)
 
-countries=['RU', 'CA', 'US', 'JP', 'MX', 'KR', 'IN']
+countries = ['RU', 'CA', 'US', 'JP', 'MX', 'KR', 'IN']
+
+
+def getChannelTitleById(id):
+    response = youtube.channels().list(part='snippet', id=id).execute()
+    return response['items'][0]['snippet']['title']
+
 
 def getVideos():
     response = youtube.videos().list(part='snippet,id,statistics',

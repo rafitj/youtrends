@@ -21,7 +21,7 @@ import 'query-string'
 import { parse } from "query-string";
 import Cookies from 'universal-cookie';
 import '../node_modules/react-vis/dist/style.css';
-import { XYPlot, XAxis, YAxis, HorizontalGridLines, LineMarkSeries, ChartLabel, VerticalGridLines } from 'react-vis';
+import { XYPlot, XAxis, YAxis, HorizontalGridLines, LineMarkSeries, ChartLabel, VerticalBarSeries, VerticalGridLines} from 'react-vis';
 
 const cookies = new Cookies()
 
@@ -48,9 +48,14 @@ function displayPlaylistVideos(videos) {
     ));
 }
 
-function createLineGraph(data, xLabel, yLabel) {
-    return <div style={{ marginLeft: 300, marginTop: 50, paddingBottom: 20 }}>
-        <XYPlot width={700} height={500} >
+function convertData(data) {
+    var ans = data.map(a => ({x: a["x"].length > 9 ? a["x"].substring(0,9)+"..." : a["x"], y: a["y"]}))
+    return ans
+}
+
+function createBarGraph(data, xLabel, yLabel) {
+    return <div style={{ marginLeft: 200, marginTop: 50, paddingBottom: 20 }}>
+        <XYPlot width={900} height={500} margin={{left: 100}} xType="ordinal" >
             <HorizontalGridLines />
             <VerticalGridLines />
             <XAxis />
@@ -59,7 +64,7 @@ function createLineGraph(data, xLabel, yLabel) {
                 text={xLabel}
                 className="alt-x-label"
                 xPercent={0.5}
-                yPercent={0.92}
+                yPercent={0.79}
             />
 
             <ChartLabel
@@ -71,8 +76,40 @@ function createLineGraph(data, xLabel, yLabel) {
                     transform: 'rotate(-90)',
                   }}
             />
+            <VerticalBarSeries
+                style={{
+                    strokeWidth: '3px'
+                }}
+                lineStyle={{ stroke: 'red' }}
+                markStyle={{ stroke: 'blue' }}
+                data={data}
+            />
+        </XYPlot>
+    </div>
+}
+
+function createLineGraph(data, xLabel, yLabel) {
+    return <div style={{ marginLeft: 200, marginTop: 50, paddingBottom: 20 }}>
+        <XYPlot width={900} height={500} tickFormat={val => Math.round(val) === val ? val : ""} margin={{left: 100}} xType="ordinal" >
+            <HorizontalGridLines />
+            <VerticalGridLines />
+            <XAxis />
+            <YAxis />
+            <ChartLabel
+                text={xLabel}
+                xPercent={0.5}
+                yPercent={0.79}
+            />
+
+            <ChartLabel
+                text={yLabel}
+                xPercent={0.015}
+                yPercent={0.5}
+                style={{
+                    transform: 'rotate(-90)',
+                  }}
+            />
             <LineMarkSeries
-                className="linemark-series-example"
                 style={{
                     strokeWidth: '3px'
                 }}
@@ -90,6 +127,10 @@ function App() {
     const [playlistVideos, setPlaylistVideos] = useState([]);
     const [startDate, setDate] = useState(new Date());
     const [query, setQuery] = useState("");
+    const [playlistData, setPlaylistData] = useState([]);
+    const [countryData, setCountryData] = useState([]);
+    const [channelData, setChannelData] = useState([]);
+    const [dateData, setDateData] = useState([]);
 
     function getVideos() {
         axios.get(url + "/videos")
@@ -136,6 +177,24 @@ function App() {
             }
         })
             .then(response => setVideos(response.data))
+            .catch(err => console.error(err))
+    }
+
+    function getAnalytics(key) {
+        axios.get(url + "/playlistvids-vs-views")
+            .then(response => setPlaylistData(convertData(response.data)))
+            .catch(err => console.error(err))
+
+        axios.get(url + "/countries-vs-views")
+            .then(response => setCountryData(convertData(response.data)))
+            .catch(err => console.error(err))
+
+        axios.get(url + "/channel-vs-views")
+            .then(response => setChannelData(convertData(response.data)))
+            .catch(err => console.error(err))
+
+        axios.get(url + "/date-vs-views")
+            .then(response => setDateData(convertData(response.data)))
             .catch(err => console.error(err))
     }
 
@@ -200,7 +259,7 @@ function App() {
     useEffect(() => {
         getVideos();
         getPlaylistVideos();
-        //query for analytics
+        getAnalytics();
     }, []);
 
     function videosPage() {
@@ -273,16 +332,20 @@ function App() {
                     <h2>Analytics</h2>
                 </div>
                 <div className="statsText">
-                    <h3>Subscribers vs Date</h3>
-                    {createLineGraph([{ x: 1, y: 10 }, { x: 2, y: 5 }, { x: 3, y: 15 }], "Date", "Subscribers")}
+                    <h3>Top 10 Videos in the Most Playlists</h3>
+                    {createBarGraph(playlistData, "Title", "Number of Playlists")}
                 </div>
                 <div className="statsText">
-                    <h3>Viewers vs Date</h3>
-                    {createLineGraph([{ x: 1, y: 10 }, { x: 2, y: 5 }, { x: 3, y: 15 }], "Date", "Viewers")}
+                    <h3>Numbers of Views By Date</h3>
+                    {createLineGraph(dateData, "Date", "Views")}
                 </div>
                 <div className="statsText">
-                    <h3>Likes vs Date</h3>
-                    {createLineGraph([{ x: 1, y: 10 }, { x: 2, y: 5 }, { x: 3, y: 15 }], "Date", "Likes")}
+                    <h3>Viewership by Country</h3>
+                    {createBarGraph(countryData, "Country", "Views")}
+                </div>
+                <div className="statsText">
+                    <h3>Viewership by Channel</h3>
+                    {createBarGraph(channelData, "Channel", "Views")}
                 </div>
             </div>
         );

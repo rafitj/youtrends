@@ -136,6 +136,14 @@ def channelVsViews():
              'y': int(views)} for (channel, views) in result]
     return jsonify(data)
 
+@app.route("/date-vs-views", methods=['GET'])
+def channelVsViews():
+    result = db.session.query(models.Video.publish_time.label('date'), db.func.sum(
+        models.Video.views).label('total views')).group_by(models.Video.publish_time).limit(10).all()
+    data = [{'x': youtube_api.getChannelTitleById(date),
+             'y': int(views)} for (date, views) in result]
+    return jsonify(data)
+
 # playlist routes
 
 

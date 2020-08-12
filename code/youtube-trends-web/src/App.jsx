@@ -246,7 +246,7 @@ function App() {
                     title: "Default Playlist Title, Milestone 2",
                     user_id: cookies.get('user_id')
                 })
-                .then(response => cookies.set('playlist_ID', response.data))
+                .then(response => cookies.set('playlist_ID', response.data.playlist_id))
                 .catch(err => console.error(err))
         }
     }

@@ -37,6 +37,9 @@ Added endpoints to backend API, edited report
 Milestone 2 :
 Added more endpoints, suggested adding indexes to country and date, helped with report
 
+Milestone 3:
+Created queries and endpoint code for backend data visualization, added entries to playlist videos
+
 Name: Jin Huang
 Milestone 0:
 fixed install script

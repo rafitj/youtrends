@@ -31,5 +31,5 @@ This will start the frontend on localhost:3000, we have the backend deployed at 
 
 If you want to run the backend:
 Open two new tabs for a total of 3.
-Starting the backend requires logging into our cloud SQL proxy then starting the backend. First cd into `code/youtube-trends-backend/` in your second tab and run `./start_proxy.sh` assuming you have given it execute permissions. In the 3rd tab cd into `code/youtube-trends-backend/` and run `./run_app.sh`. Now the backend should be running. Refresh the frontend and videos should be displaying. 
+Starting the backend requires logging into our cloud SQL proxy then starting the backend. First cd into `code/youtube-trends-backend/` in your second tab and run `./start_proxy.sh` assuming you have given it execute permissions. In the 3rd tab cd into `code/youtube-trends-backend/` , enter the python veritual environment by running `source env/bin/activate` and funally run `./run_app.sh`. Now the backend should be running. Refresh the frontend and videos should be displaying. 
 If something does not work, we recommend viewing the provided video, m2demo.mov to see a demonstration.

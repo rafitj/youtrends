@@ -136,6 +136,14 @@ def channelVsViews():
              'y': int(views)} for (channel, views) in result]
     return jsonify(data)
 
+
+@app.route("/date-vs-views", methods=['GET'])
+def dateVsViews():
+    result = db.session.query(models.Video.publish_time, db.func.sum(
+        models.Video.views)).group_by(models.Video.publish_time).order_by(models.Video.publish_time.desc()).limit(15).all()
+    data = [{'x': date, 'y': int(views)} for (date, views) in result]
+    return jsonify(data)
+
 # playlist routes
 
 

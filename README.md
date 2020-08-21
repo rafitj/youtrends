@@ -9,10 +9,10 @@ You can access it on any web browser. You're always up to date with YouTrends!
 
 # App Preview
 There is an attached demo `Demo.mp4` for a complete app-overview.
-![Preview 1](./preview/Preview1.gif)
 ![Preview 2](./preview/Preview2.gif)
+![Preview 1](./preview/Preview1.gif)
 
-# Location of Files That Implement Features
+# File Directory
 ### Backend
 - Updating the database with Youtube API - `code/youtube-trends-backend/app/youtube_api.py`
 - Backend API for getting filtered data - `code/youtube-trends-backend/app/routes.py`

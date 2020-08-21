@@ -1,11 +1,16 @@
 # YouTrends
 UW 2020 - CS348 Project
 
-The database for this project is hosted on Google Cloud Platform, no loading of a sample required.
-The database uses this dataset https://www.kaggle.com/datasnaek/youtube-new as well as Youtube's API to get more current data.
+YouTrends is a Youtube video analytics platform.
+You can filter videos on a variety of attributes and see graphical trends to get a better idea of what’s hot and what’s not. If you see an interesting video you can also save it to a playlist to come back to it later.
+You can access it on any web browser. You're always up to date with YouTrends!
 
-The code to get data from the Youtube API is in the following file under the code directory `code/youtube-trends-backend/app/youtube_api.py`
-There is also an attached demo video m2demo.mp4
+**NOTE: The GCP project has been disabled so the app can no longer be run.**
+
+# App Preview
+There is an attached demo `Demo.mp4` for a complete app-overview.
+![Preview 1](./preview/Preview1.gif)
+![Preview 2](./preview/Preview2.gif)
 
 # Location of Files That Implement Features
 ### Backend
@@ -17,7 +22,7 @@ There is also an attached demo video m2demo.mp4
 ### Frontend
 - User interface for interacting with Backend - `code/youtube-trends-web/src/App.jsx`
 
-## How to Use
+## How to Use (deprecated)
 You will need the `npm` command to run the project.
 <br/>
 `cd` into the directory of this project

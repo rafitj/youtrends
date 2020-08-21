@@ -1,4 +1,4 @@
-# Youtube Trends
+# YouTrends
 UW 2020 - CS348 Project
 
 The database for this project is hosted on Google Cloud Platform, no loading of a sample required.
